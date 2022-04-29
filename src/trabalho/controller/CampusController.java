@@ -43,9 +43,8 @@ public class CampusController {
         return campusDAO.buscaPorId(idCampus);
     }
 
-    public void removerPorId(String id) {
-        long idCampus = Long.parseLong(id);
-        campusDAO.removerPorId(idCampus);
+    public void removerPorId(Long id) {
+        campusDAO.removerPorId(id);
     }
 
     public Date verificarData(String s) {

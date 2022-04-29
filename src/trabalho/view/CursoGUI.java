@@ -124,47 +124,35 @@ public class CursoGUI {
                 case 1:
                     if (cursoController.checarListaCampus()) {
                         Curso c = criaCurso();
-
                         boolean foiInserido = cursoController.adicionar(c);
-                        if (foiInserido) {
+                        if (foiInserido){
                             System.out.println("Curso inserido com sucesso");
-                        } else {
+                        } else{
                             System.out.println("Curso nao inserido");
                         }
-                    }
-                    else {
+                    } else {
                         System.out.println("Curso nao inserido, nenhum Campus registrado");
                     }
                     break;
                 case 2:
-                    
-                    if (cursoController.checarListaCurso()) {                       
+
+                    if (cursoController.checarListaCurso()) {
                         Curso editCurso = selecionarCurso();
-                        if (editCurso != null) {
-                            editaCurso(editCurso);
-                            System.out.println("Curso editado com sucesso");
-                        } else {
-                            System.out.println("Curso nao encontrado, tente novamente");
-                        }
-                    }
-                    else{
+                        editaCurso(editCurso);
+                        System.out.println("Curso editado com sucesso");
+                    } else {
                         System.out.println("Nao existe nenhum Curso registrado");
                     }
-                    break;                    
+                    break;
 
                 case 3:
-                    mostrarTodoscursos();
-
-                    System.out.println("Informe o id do curso que deseja excluir");
-                    String id = scan.nextLine();
-
-                    Curso removeCurso = cursoController.buscaPorId(id);
-
-                    if (removeCurso != null) {
-                        cursoController.removerPorId(id);
+                    if (cursoController.checarListaCampus()) {
+                        mostrarTodoscursos();
+                        Curso removeCurso = selecionarCurso();
+                        cursoController.removerPorId(removeCurso.getId());
                         System.out.println("Curso removido com sucesso");
                     } else {
-                        System.out.println("Curso nao encontrado, tente novamente");
+                        System.out.println("Nenhum curso encontrado, tente novamente");
                     }
 
                     break;

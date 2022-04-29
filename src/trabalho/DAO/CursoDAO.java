@@ -7,7 +7,6 @@ package trabalho.DAO;
 
 import trabalho.Utils.Data;
 import trabalho.model.Curso;
-import trabalho.model.Campus;
 
 /**
  *
@@ -19,12 +18,15 @@ public class CursoDAO {
     private static boolean inicializado = false;
 
     public CursoDAO() {
-
+        
         if (!inicializado) {
+            
+            CampusDAO campusDAO = new CampusDAO();
             Curso c1 = new Curso();
             c1.setNome("Engenharia de Computacao");
             c1.setEstado("ATIVO");
             c1.setInicio(Data.converterDataEmAno("2006"));
+            c1.setCampus(campusDAO.buscaPorId(1));
 
             adiciona(c1);
 
@@ -32,6 +34,7 @@ public class CursoDAO {
             c2.setNome("Analise e Desenvolvimento de Sistemas");
             c2.setEstado("ATIVO");
             c2.setInicio(Data.converterDataEmAno("2010"));
+            c2.setCampus(campusDAO.buscaPorId(2));
 
             adiciona(c2);
 
@@ -40,6 +43,7 @@ public class CursoDAO {
             c3.setEstado("INATIVO");
             c3.setInicio(Data.converterDataEmAno("2000"));
             c3.setTermino(Data.converterDataEmAno("2010"));
+            c3.setCampus(campusDAO.buscaPorId(3));
 
             adiciona(c3);
 

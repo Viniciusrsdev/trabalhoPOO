@@ -51,7 +51,7 @@ public class CampusGUI {
         System.out.println("Informe a abreviacao do campus");
         temp.setAbreviacao(scan.nextLine());
 
-        System.out.println("Informe a duracao das aulas do campus (HH:mm)");
+        System.out.println("Informe a duracao das aulas do campus (em minutos)");
         temp.setDuracaoAulas(Long.parseLong(scan.nextLine()));
 
         data = Validacao.validarDateScan(campusController::verificarData, "Informe a data de criacao do campus(dd/MM/yyyy):", "Data inválida");
@@ -85,7 +85,7 @@ public class CampusGUI {
         System.out.println("Informe a abreviacao do campus");
         temp.setAbreviacao(scan.nextLine());
 
-        System.out.println("Informe a duracao das aulas do campus (HH:mm)");
+        System.out.println("Informe a duracao das aulas do campus (em minutos)");
         temp.setDuracaoAulas(Long.parseLong(scan.nextLine()));
 
         data = Validacao.validarDateScan(campusController::verificarData, "Informe a data de criacao do campus(dd/MM/yyyy):", "Data inválida");
@@ -134,7 +134,6 @@ public class CampusGUI {
         do {
 
             opc = recebeOpcaoUsuario();
-            String idCampus;
 
             switch (opc) {
 
@@ -147,39 +146,29 @@ public class CampusGUI {
                         System.out.println("Campus inserido com sucesso");
                     } else {
                         System.out.println("Campus nao inserido");
-
                     }
 
                     break;
                 case 2:
 
-                    if (campusController.checarListaCampus()) {                       
+                    if (campusController.checarListaCampus()) {
+                        mostrarTodosCampus();
                         Campus editCampus = selecionarCampus();
-                        if (editCampus != null) {
-                            editaCampus(editCampus);
-                            System.out.println("Campus editado com sucesso");
-                        } else {
-                            System.out.println("Campus nao encontrado, tente novamente");
-                        }
-                    }
-                    else{
-                        System.out.println("Nao existe nenhum Campus registrado");
+                        editaCampus(editCampus);
+                        System.out.println("Campus editado com sucesso");
+                    } else {
+                        System.out.println("Nenhum Campus registrado");
                     }
                     break;
 
                 case 3:
-                    mostrarTodosCampus();
-
-                    System.out.println("Informe o id do campus que deseja excluir");
-                    String id = scan.nextLine();
-
-                    Campus removeCampus = campusController.buscaPorId(id);
-
-                    if (removeCampus != null) {
-                        campusController.removerPorId(id);
+                    if (campusController.checarListaCampus()) {
+                        mostrarTodosCampus();
+                        Campus removeCampus = selecionarCampus();
+                        campusController.removerPorId(removeCampus.getId());
                         System.out.println("Campus removido com sucesso");
                     } else {
-                        System.out.println("Campus nao encontrado, tente novamente");
+                        System.out.println("Nenhum campus encontrado, tente novamente");
                     }
 
                     break;

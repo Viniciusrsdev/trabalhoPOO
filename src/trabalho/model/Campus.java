@@ -7,6 +7,7 @@ package trabalho.model;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import trabalho.Utils.Data;
 
 /**
  *
@@ -148,9 +149,17 @@ public class Campus {
         return true;
     }
 
+    private String dataCriacao(){
+        return Data.converterData(dataCriacaoCampus);
+    }
+    
     @Override
     public String toString() {
-        return nome + " {id=" + id + ", abreviacao=" + abreviacao + ", duracaoAulas=" + duracaoAulas + ", dataCriacaoCampus=" + dataCriacaoCampus + ", cidade=" + cidade + ", bairro=" + bairro + ", endereco=" + endereco + ", cep=" + cep + '}';
+        return id + " -- " + nome + " (" + abreviacao + ") - Duracao das aulas: " + duracaoAulas + " - Criado em: "  + dataCriacao() + "\n" + cep + " - " + cidade + " - Bairro " + bairro + " - " + endereco;
     }
-
+    
+    public String abreviado() {
+        return nome + " (" + abreviacao + ")";
+    }
+    
 }

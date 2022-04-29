@@ -141,7 +141,6 @@ public class Servidor {
 
     @Override
     public String toString() {
-        return "Servidor{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", campus=" + campus + ", cargo=" + cargo + ", login=" + login + ", senha=" + senha + ", admnistrador=" + admnistrador + '}';
+        return id + " -- " + nome + " (" + cargo + ") -- " + campus.abreviado() + " -> " + email;
     }
-
 }

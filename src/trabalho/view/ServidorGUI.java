@@ -53,7 +53,7 @@ public class ServidorGUI {
         CampusGUI c = new CampusGUI();
         temp.setCampus(c.selecionarCampus());
 
-        temp.setCargo(Validacao.validarStringScan(servidorController::verificarCargo, "Informe o cargo do servidor(professor/tecnico)", "Cargo invalido, insira professor ou tecnico"));
+        temp.setCargo(Validacao.validarStringScan(servidorController::verificarCargo, "Informe o cargo do servidor(professor/tecnico)", "Cargo invalido, insira professor ou tecnico").toUpperCase());
 
         System.out.println("Informe o login do servidor");
         temp.setLogin(scan.nextLine());
@@ -80,8 +80,7 @@ public class ServidorGUI {
         CampusGUI c = new CampusGUI();
         temp.setCampus(c.selecionarCampus());
 
-        System.out.println("Informe o cargo do servidor(professor/tecnico)");
-        temp.setEmail(scan.nextLine());
+        temp.setCargo(Validacao.validarStringScan(servidorController::verificarCargo, "Informe o cargo do servidor(professor/tecnico)", "Cargo invalido, insira professor ou tecnico").toUpperCase());
 
         System.out.println("Informe o login do servidor");
         temp.setEmail(scan.nextLine());
@@ -89,13 +88,7 @@ public class ServidorGUI {
         System.out.println("Informe asenha do servidor");
         temp.setEmail(scan.nextLine());
 
-        System.out.println("O servidor sera um administrador?(s/n)");
-        String ad = scan.nextLine();
-        if (ad == "s") {
-            temp.setAdmnistrador(true);
-        } else {
-            temp.setAdmnistrador(false);
-        }
+        temp.setAdmnistrador(Validacao.validarBooleanScan(servidorController::verificarAdministrador, "O servidor sera um administrador?(s/n)", "Opcao invalida, insira sim(s) ou nao(n)"));
 
         temp.setDataModificacao(Data.dataAtual());
 
@@ -119,7 +112,7 @@ public class ServidorGUI {
         Servidor[] servidores = servidorController.listar();
         boolean tem = false;
         for (Servidor i : servidores) {
-            if (i != null && i.getCargo() == "professor") {
+            if (i != null && "PROFESSOR".equals(i.getCargo())) {
                 System.out.println(i);
                 tem = true;
             }
@@ -137,7 +130,7 @@ public class ServidorGUI {
 
     public Servidor selecionarServidorProfessor() {
         mostrarTodosServidoresProfessores();
-        Servidor selectServidor = (Servidor) Validacao.validarObjectScan(servidorController::buscaPorId, "Insira o id do Professor:", "Professor inválido.");
+        Servidor selectServidor = (Servidor) Validacao.validarObjectScan(servidorController::buscaPorIdProfessor, "Insira o id do Professor:", "Professor inválido.");
         return selectServidor;
     }
 
@@ -147,22 +140,18 @@ public class ServidorGUI {
         do {
 
             opc = recebeOpcaoUsuario();
-            long idServidor;
 
             switch (opc) {
 
                 case 1:
-                    
+
                     if (servidorController.checarListaCampus()) {
-                        
                         Servidor s = criaServidor();
-                        
                         boolean foiInserido = servidorController.adicionar(s);
                         if (foiInserido) {
-                            System.out.println("servidor inserido com sucesso");
-                        } else {
-                            System.out.println("servidor nao inserido");
-
+                            System.out.println("Servidor inserido com sucesso");
+                        }else{
+                            System.out.println("Servidor nao inserido");
                         }
                     } else {
                         System.out.println("Servidor nao inserido, nenhum Campus registrado");
@@ -170,30 +159,25 @@ public class ServidorGUI {
                     break;
 
                 case 2:
-                    Servidor editServidor = selecionarServidor();
-
-                    if (editServidor != null) {
+                    if (servidorController.checarListaServidor()) {
+                        mostrarTodosServidores();
+                        Servidor editServidor = selecionarServidor();
                         editaServidor(editServidor);
                         System.out.println("Servidor editado com sucesso");
                     } else {
-                        System.out.println("Servidor nao encontrado, tente novamente");
+                        System.out.println("Nenhum servidor encontrado, tente novamente");
                     }
 
                     break;
 
                 case 3:
-                    mostrarTodosServidores();
-
-                    System.out.println("Informe o id do servidor que deseja excluir");
-                    String id = scan.nextLine();
-
-                    Servidor removeServidor = servidorController.buscaPorId(id);
-
-                    if (removeServidor != null) {
-                        servidorController.removerPorId(id);
+                    if (servidorController.checarListaServidor()) {
+                        mostrarTodosServidores();
+                        Servidor removeServidor = selecionarServidor();
+                        servidorController.removerPorId(removeServidor.getId());
                         System.out.println("Servidor removido com sucesso");
                     } else {
-                        System.out.println("Servidor nao encontrado, tente novamente");
+                        System.out.println("Nenhum servidor encontrado, tente novamente");
                     }
 
                     break;

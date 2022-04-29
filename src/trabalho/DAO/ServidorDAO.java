@@ -18,31 +18,35 @@ public class ServidorDAO {
 
     public ServidorDAO() {
         if (!inicializado) {
+            CampusDAO campusDAO = new CampusDAO();
             Servidor s1 = new Servidor();
             s1.setNome("Eduardo");
             s1.setEmail("eduardo.iftm@edu.br");
-            s1.setCargo("professor");
+            s1.setCargo("PROFESSOR");
             s1.setLogin("admin");
             s1.setSenha("admin");
             s1.setAdmnistrador(true);
+            s1.setCampus(campusDAO.buscaPorId(1));
             this.adiciona(s1);
 
             Servidor s2 = new Servidor();
             s2.setNome("Camilo");
             s2.setEmail("camilo.lelis.iftm@edu.br");
-            s2.setCargo("professor");
+            s2.setCargo("PROFESSOR");
             s2.setLogin("user1");
             s2.setSenha("pass1");
             s2.setAdmnistrador(false);
+            s2.setCampus(campusDAO.buscaPorId(2));
             adiciona(s2);
 
             Servidor s3 = new Servidor();
             s3.setNome("Ernani");
             s3.setEmail("ernani.ernanim.iftm@edu.br");
-            s3.setCargo("tecnico");
+            s3.setCargo("TECNICO");
             s3.setLogin("user2");
             s3.setSenha("pass2");
             s3.setAdmnistrador(false);
+            s3.setCampus(campusDAO.buscaPorId(3));
             adiciona(s3);
             inicializado = true;
         }

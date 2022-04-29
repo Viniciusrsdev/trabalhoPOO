@@ -6,6 +6,7 @@
 package trabalho.controller;
 
 import java.util.Date;
+import trabalho.DAO.CampusDAO;
 import trabalho.DAO.CursoDAO;
 import trabalho.Utils.Data;
 import trabalho.model.Campus;
@@ -48,16 +49,15 @@ public class CursoController {
         return cursoDAO.buscaPorId(idCurso);
     }
 
-    public void removerPorId(String id) {
-        long idCurso = Long.parseLong(id);
-        cursoDAO.removerPorId(idCurso);
+    public void removerPorId(Long id) {
+        cursoDAO.removerPorId(id);
     }
     
     public void removerCursosCampusDeletado(Campus c) {
         Curso[] cursos = this.listar();
         for (int i = 0; i < cursos.length; i++) {;
             if (cursos[i] != null && cursos[i].getCampus() == c) {
-                String aux = String.valueOf(cursos[i].getId());
+                Long aux = cursos[i].getId();
                 this.removerPorId(aux);
             }
         }

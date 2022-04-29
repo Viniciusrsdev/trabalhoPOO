@@ -133,7 +133,7 @@ public class Curso {
 
     @Override
     public String toString() {
-        return id + " -- " + nome + " (" + estado + ") -- " + campus + " -> " + periodo();
+        return id + " -- " + nome + " (" + estado + ") -- " + campus.abreviado() + " -> " + periodo();
     }
 
 }

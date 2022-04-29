@@ -30,21 +30,40 @@ public class ServidorController {
         long idServidor = Long.parseLong(id);
         return servidorDAO.buscaPorId(idServidor);
     }
-
-    public void removerPorId(String id) {
+    
+    public Servidor buscaPorIdProfessor(String id) {
         long idServidor = Long.parseLong(id);
-        servidorDAO.removerPorId(idServidor);
+        if (verificarProfessor(servidorDAO.buscaPorId(idServidor).getCargo())){
+            return servidorDAO.buscaPorId(idServidor);
+        }
+        return null;
+    }
+
+    public void removerPorId(Long id) {
+        //remover em cascata as dependencias
+        servidorDAO.removerPorId(id);
     }
 
     public void removerServidoresCampusDeletado(Campus c) {
         Servidor[] servidores = this.listar();
         for (int i = 0; i < servidores.length; i++) {;
             if (servidores[i] != null && servidores[i].getCampus() == c) {
-                String aux = String.valueOf(servidores[i].getId());
+                Long aux = servidores[i].getId();
                 this.removerPorId(aux);
             }
         }
 
+    }
+    
+    public boolean checarListaServidor() {
+        Servidor[] servidor = this.listar();
+        boolean temServidor = false;
+        for (Servidor i : servidor) {
+            if (i != null) {
+                temServidor = true;
+            }
+        }
+        return temServidor;
     }
     
     public boolean checarListaCampus(){
@@ -61,6 +80,14 @@ public class ServidorController {
 
     public boolean verificarCargo (String c){
         if (!"PROFESSOR".equals(c.toUpperCase()) && !"TECNICO".equals(c.toUpperCase())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    public boolean verificarProfessor (String c){
+        if (!"PROFESSOR".equals(c.toUpperCase())) {
             return false;
         } else {
             return true;
