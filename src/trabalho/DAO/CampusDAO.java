@@ -36,7 +36,7 @@ public class CampusDAO {
             Campus c2 = new Campus();
             c2.setNome("Campus IFTM Fazenda");
             c2.setAbreviacao("FAZ");
-            c2.setDuracaoAulas(60);
+            c2.setDuracaoAulas(50);
             c2.setDataCriacaoCampus(Data.converterData("02/03/1999"));
             c2.setCidade("Uberaba");
             c2.setBairro("Univerde Cidade");
@@ -85,7 +85,6 @@ public class CampusDAO {
 
             }
         }
-
     }
 
     public Campus buscaPorId(long id) {

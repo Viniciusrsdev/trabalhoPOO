@@ -6,6 +6,7 @@
 package trabalho.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  *
@@ -17,9 +18,10 @@ public class OfertaDisciplinas {
     private final long id;
     private Disciplina disciplina;
     private Servidor professor;
-    private String ano;
+    private Date ano;
     private String semestre;
-    private long horasSemanais;
+    private double horasSemanais;
+    private double aulasSemanais;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
@@ -47,11 +49,11 @@ public class OfertaDisciplinas {
         this.professor = professor;
     }
 
-    public String getAno() {
+    public Date getAno() {
         return ano;
     }
 
-    public void setAno(String ano) {
+    public void setAno(Date ano) {
         this.ano = ano;
     }
 
@@ -63,13 +65,22 @@ public class OfertaDisciplinas {
         this.semestre = semestre;
     }
 
-    public long getHorasSemanais() {
+    public double getHorasSemanais() {
         return horasSemanais;
     }
 
-    public void setHorasSemanais(long aulasSemanais) {
+    public void setHorasSemanais(double aulasSemanais) {
         this.horasSemanais = aulasSemanais;
     }
+
+    public double getAulasSemanais() {
+        return aulasSemanais;
+    }
+
+    public void setAulasSemanais(double aulasSemanais) {
+        this.aulasSemanais = aulasSemanais;
+    }
+    
 
     public LocalDateTime getDataCriacao() {
         return dataCriacao;
@@ -114,7 +125,7 @@ public class OfertaDisciplinas {
 
     @Override
     public String toString() {
-        return "OfertaDisciplinas{" + "id=" + id + ", disciplina=" + disciplina + ", professor=" + professor + ", ano=" + ano + ", semestre=" + semestre + ", aulasSemanais=" + horasSemanais + '}';
+        return id + " -- " + disciplina.getNome() + " (" + professor.getNome() + ") -> " + ano + "/" + semestre;
     }
 
 }

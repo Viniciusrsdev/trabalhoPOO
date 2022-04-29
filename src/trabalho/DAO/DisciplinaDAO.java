@@ -18,21 +18,29 @@ public class DisciplinaDAO {
 
     public DisciplinaDAO() {
         if (!inicializado) {
+            
+            CursoDAO cursoDAO = new CursoDAO();
 
-            Disciplina s1 = new Disciplina();
-            s1.setNome("Programacao Orientada a Objetos");
-            s1.setCargaHoraria(120);
-            adiciona(s1);
+            Disciplina d1 = new Disciplina();
+            d1.setNome("Programacao Orientada a Objetos");
+            d1.setCargaHoraria(240);
+            d1.setPeriodicidade("ANUAL");
+            d1.setCurso(cursoDAO.buscaPorId(1));
+            adiciona(d1);
 
-            Disciplina s2 = new Disciplina();
-            s2.setNome("Interfaces WEB");
-            s2.setCargaHoraria(30);
-            adiciona(s2);
+            Disciplina d2 = new Disciplina();
+            d2.setNome("Interfaces WEB");
+            d2.setCargaHoraria(30);
+            d2.setPeriodicidade("SEMESTRAL");
+            d2.setCurso(cursoDAO.buscaPorId(2));
+            adiciona(d2);
 
-            Disciplina s3 = new Disciplina();
-            s3.setNome("Banco de Dados");
-            s3.setCargaHoraria(90);
-            adiciona(s3);
+            Disciplina d3 = new Disciplina();
+            d3.setNome("Banco de Dados");
+            d3.setCargaHoraria(90);
+            d3.setPeriodicidade("SEMESTRAL");
+            d3.setCurso(cursoDAO.buscaPorId(3));
+            adiciona(d3);
 
             inicializado = true;
         }
@@ -47,7 +55,6 @@ public class DisciplinaDAO {
         } else {
             return false;
         }
-
     }
 
     public Disciplina[] listar() {
@@ -79,7 +86,6 @@ public class DisciplinaDAO {
             }
         }
         return -1;
-
     }
 
 }

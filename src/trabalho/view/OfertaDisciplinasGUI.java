@@ -5,10 +5,10 @@
  */
 package trabalho.view;
 
+import java.util.Date;
 import java.util.Scanner;
 import trabalho.Utils.Data;
 import trabalho.Utils.Validacao;
-
 import trabalho.model.OfertaDisciplinas;
 import trabalho.controller.OfertaDisciplinasController;
 
@@ -31,8 +31,7 @@ public class OfertaDisciplinasGUI {
         builder.append("\n2 - Editar uma Oferta de Disciplina");
         builder.append("\n3 - Deletar uma Oferta de Disciplina");
         builder.append("\n4 - Mostrar todas as  Ofertas de Disciplina");
-        builder.append("\n5 - Alguma coisa");
-        builder.append("\n6 - Voltar\n");
+        builder.append("\n5 - Voltar\n");
         builder.append("\nEscolha uma opcao: ");
 
         System.out.print(builder.toString());
@@ -42,6 +41,9 @@ public class OfertaDisciplinasGUI {
 
     public OfertaDisciplinas criaOfertaDisciplinas() {
 
+        Date data;
+        long meses;
+
         OfertaDisciplinas temp = new OfertaDisciplinas();
 
         DisciplinaGUI d = new DisciplinaGUI();
@@ -50,22 +52,32 @@ public class OfertaDisciplinasGUI {
         ServidorGUI s = new ServidorGUI();
         temp.setProfessor(s.selecionarServidorProfessor());
 
-        System.out.println("Informe o ano da oferta de disciplina");
-        temp.setAno(scan.nextLine());
+        data = Validacao.validarDateScan(ofertadisciplinasController::verificarAno, "Informe o ano da oferta de disciplina (yyyy):", "Ano inválido");
+        temp.setAno(data);
 
         System.out.println("Informe o semestre da oferta de disciplina");
         temp.setSemestre(scan.nextLine());
 
+        if (temp.getDisciplina().getPeriodicidade() == "ANUAL") {
+            meses = 10;
+        } else {
+            meses = 5;
+        }
+
+        temp.setHorasSemanais(temp.getDisciplina().getCargaHoraria() / (meses * 4));
         
-        temp.setHorasSemanais(temp.getDisciplina().getCargaHoraria() / 20);
-        
+        temp.setAulasSemanais(temp.getHorasSemanais() / ((temp.getDisciplina().getCurso().getCampus().getDuracaoAulas()) / 60));
 
         temp.setDataCriacao(Data.dataAtual());
+        temp.setDataModificacao(Data.dataAtual());
 
         return temp;
     }
 
     public void editaOfertaDisciplinas(OfertaDisciplinas temp) {
+        
+        Date data;
+        long meses;
 
         DisciplinaGUI d = new DisciplinaGUI();
         temp.setDisciplina(d.selecionarDisciplina());
@@ -73,13 +85,21 @@ public class OfertaDisciplinasGUI {
         ServidorGUI s = new ServidorGUI();
         temp.setProfessor(s.selecionarServidorProfessor());
 
-        System.out.println("Informe o ano da oferta de disciplina");
-        temp.setAno(scan.nextLine());
+        data = Validacao.validarDateScan(ofertadisciplinasController::verificarAno, "Informe o ano da oferta de disciplina (yyyy):", "Ano inválido");
+        temp.setAno(data);
 
         System.out.println("Informe o semestre da oferta de disciplina");
         temp.setSemestre(scan.nextLine());
 
-        temp.setHorasSemanais(temp.getDisciplina().getCargaHoraria() / 20);
+        if (temp.getDisciplina().getPeriodicidade() == "ANUAL") {
+            meses = 10;
+        } else {
+            meses = 5;
+        }
+
+        temp.setHorasSemanais(temp.getDisciplina().getCargaHoraria() / (meses * 4));
+        
+        temp.setAulasSemanais(temp.getHorasSemanais() / ((temp.getDisciplina().getCurso().getCampus().getDuracaoAulas()) / 60));
 
         temp.setDataModificacao(Data.dataAtual());
 
@@ -111,47 +131,44 @@ public class OfertaDisciplinasGUI {
         do {
 
             opc = recebeOpcaoUsuario();
-            long idOfertaDisciplinas;
 
             switch (opc) {
 
                 case 1:
-                    OfertaDisciplinas oD = criaOfertaDisciplinas();
+                    if (ofertadisciplinasController.checarListaDisciplina() && ofertadisciplinasController.checarListaServidor()) {
+                        OfertaDisciplinas oD = criaOfertaDisciplinas();
 
-                    boolean foiInserido = ofertadisciplinasController.adicionar(oD);
-                    if (foiInserido) {
-                        System.out.println("oferta de disciplina inserida com sucesso");
+                        boolean foiInserido = ofertadisciplinasController.adicionar(oD);
+                        if (foiInserido) {
+                            System.out.println("oferta de disciplina inserida com sucesso");
+                        } else {
+                            System.out.println("oferta de disciplina nao inserida");
+                        }
                     } else {
-                        System.out.println("oferta de disciplina nao inserida");
-
+                        System.out.println("oferta de disciplina nao inserida, nenhum Servidor ou disciplina registrado");
                     }
 
                     break;
                 case 2:
-                    OfertaDisciplinas editOfertaDisciplinas = selecionarOfertaDisciplinas();
 
-                    if (editOfertaDisciplinas != null) {
+                    if (ofertadisciplinasController.checarListaOfertaDisciplinas()) {
+                        OfertaDisciplinas editOfertaDisciplinas = selecionarOfertaDisciplinas();
                         editaOfertaDisciplinas(editOfertaDisciplinas);
                         System.out.println("oferta de disciplina editada com sucesso");
                     } else {
-                        System.out.println("oferta de disciplina nao encontrada, tente novamente");
+                        System.out.println("Nao existe nenhum oferta de disciplina registrado");
                     }
-
                     break;
 
                 case 3:
-                    mostrarTodasOfertasDisciplinas();
 
-                    System.out.println("Informe o id do oferta de disciplina que deseja excluir");
-                    String id = scan.nextLine();
+                    if (ofertadisciplinasController.checarListaOfertaDisciplinas()) {
 
-                    OfertaDisciplinas removeOfertaDisciplinas = ofertadisciplinasController.buscaPorId(id);
-
-                    if (removeOfertaDisciplinas != null) {
-                        ofertadisciplinasController.removerPorId(id);
+                        OfertaDisciplinas removeOfertaDisciplinas = selecionarOfertaDisciplinas();
+                        ofertadisciplinasController.removerPorId(removeOfertaDisciplinas.getId());
                         System.out.println("oferta de disciplina removida com sucesso");
                     } else {
-                        System.out.println("oferta de disciplina nao encontrada, tente novamente");
+                        System.out.println("Nenhuma oferta de disciplina encontrada, tente novamente");
                     }
 
                     break;
@@ -163,13 +180,12 @@ public class OfertaDisciplinasGUI {
                 case 5:
                     break;
 
-                case 6:
-                    break;
+            
 
                 default:
                     break;
             }
 
-        } while (opc != 6);
+        } while (opc != 5);
     }
 }

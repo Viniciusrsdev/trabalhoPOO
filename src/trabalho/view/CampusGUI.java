@@ -31,8 +31,7 @@ public class CampusGUI {
         builder.append("\n2 - Editar um Campus");
         builder.append("\n3 - Deletar um Campus");
         builder.append("\n4 - Mostrar todos os Campus");
-        builder.append("\n5 - Alguma coisa");
-        builder.append("\n6 - Voltar\n");
+        builder.append("\n5 - Voltar\n");
         builder.append("\nEscolha uma opcao: ");
 
         System.out.print(builder.toString());
@@ -152,7 +151,7 @@ public class CampusGUI {
                 case 2:
 
                     if (campusController.checarListaCampus()) {
-                        mostrarTodosCampus();
+
                         Campus editCampus = selecionarCampus();
                         editaCampus(editCampus);
                         System.out.println("Campus editado com sucesso");
@@ -163,7 +162,7 @@ public class CampusGUI {
 
                 case 3:
                     if (campusController.checarListaCampus()) {
-                        mostrarTodosCampus();
+
                         Campus removeCampus = selecionarCampus();
                         campusController.removerPorId(removeCampus.getId());
                         System.out.println("Campus removido com sucesso");
@@ -180,14 +179,11 @@ public class CampusGUI {
                 case 5:
                     break;
 
-                case 6:
-                    break;
-
                 default:
                     break;
             }
 
-        } while (opc != 6);
+        } while (opc != 5);
     }
 
 }

@@ -26,14 +26,29 @@ public class ServidorController {
         return servidorDAO.listar();
     }
 
+    public boolean checarListaCampus() {
+        return new CampusController().checarListaCampus();
+    }
+
+    public boolean checarListaServidor() {
+        Servidor[] servidor = this.listar();
+        boolean temServidor = false;
+        for (Servidor i : servidor) {
+            if (i != null) {
+                temServidor = true;
+            }
+        }
+        return temServidor;
+    }
+
     public Servidor buscaPorId(String id) {
         long idServidor = Long.parseLong(id);
         return servidorDAO.buscaPorId(idServidor);
     }
-    
+
     public Servidor buscaPorIdProfessor(String id) {
         long idServidor = Long.parseLong(id);
-        if (verificarProfessor(servidorDAO.buscaPorId(idServidor).getCargo())){
+        if (verificarProfessor(servidorDAO.buscaPorId(idServidor).getCargo())) {
             return servidorDAO.buscaPorId(idServidor);
         }
         return null;
@@ -54,23 +69,8 @@ public class ServidorController {
         }
 
     }
-    
-    public boolean checarListaServidor() {
-        Servidor[] servidor = this.listar();
-        boolean temServidor = false;
-        for (Servidor i : servidor) {
-            if (i != null) {
-                temServidor = true;
-            }
-        }
-        return temServidor;
-    }
-    
-    public boolean checarListaCampus(){
-        return new CampusController().checarListaCampus();
-    }
-    
-    public boolean verificarAdministrador (String c){
+
+    public boolean verificarAdministrador(String c) {
         if (!"S".equals(c.toUpperCase()) && !"N".equals(c.toUpperCase())) {
             return false;
         } else {
@@ -78,15 +78,15 @@ public class ServidorController {
         }
     }
 
-    public boolean verificarCargo (String c){
+    public boolean verificarCargo(String c) {
         if (!"PROFESSOR".equals(c.toUpperCase()) && !"TECNICO".equals(c.toUpperCase())) {
             return false;
         } else {
             return true;
         }
     }
-    
-    public boolean verificarProfessor (String c){
+
+    public boolean verificarProfessor(String c) {
         if (!"PROFESSOR".equals(c.toUpperCase())) {
             return false;
         } else {

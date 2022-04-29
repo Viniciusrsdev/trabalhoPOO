@@ -7,6 +7,7 @@ package trabalho.controller;
 
 import trabalho.model.Disciplina;
 import trabalho.DAO.DisciplinaDAO;
+import trabalho.model.Curso;
 
 /**
  *
@@ -24,15 +25,46 @@ public class DisciplinaController {
     public Disciplina[] listar() {
         return disciplinaDAO.listar();
     }
+    
+    public boolean checarListaCurso() {
+        return new CursoController().checarListaCurso();
+    }
+    
+    public boolean checarListaDisciplina() {
+        Disciplina[] disciplina = this.listar();
+        boolean temDisciplina = false;
+        for (Disciplina i : disciplina) {
+            if (i != null) {
+                temDisciplina = true;
+            }
+        }
+        return temDisciplina;
+    }
 
     public Disciplina buscaPorId(String id) {
         long idDisciplina = Long.parseLong(id);
         return disciplinaDAO.buscaPorId(idDisciplina);
     }
 
-    public void removerPorId(String id) {
-        long idDisciplina = Long.parseLong(id);
-        disciplinaDAO.removerPorId(idDisciplina);
+    public void removerPorId(Long id) {
+        
+        disciplinaDAO.removerPorId(id);
     }
-
+    
+    public void removerDisciplinasCursoDeletado(Curso c) {
+        Disciplina[] disciplinas = this.listar();
+        for (int i = 0; i < disciplinas.length; i++) {;
+            if (disciplinas[i] != null && disciplinas[i].getCurso() == c) {
+                Long aux = disciplinas[i].getId();
+                this.removerPorId(aux);
+            }
+        }
+    }
+    public boolean verificarPeriodicidade(String periodicidade) {
+        if (!"SEMESTRAL".equals(periodicidade.toUpperCase()) && !"ANUAL".equals(periodicidade.toUpperCase())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

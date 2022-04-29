@@ -5,6 +5,7 @@
  */
 package trabalho.DAO;
 
+import trabalho.Utils.Data;
 import trabalho.model.OfertaDisciplinas;
 
 /**
@@ -18,6 +19,40 @@ public class OfertaDisciplinasDAO {
 
     public OfertaDisciplinasDAO() {
         if (!inicializado) {
+            ServidorDAO servidorDAO = new ServidorDAO();
+            DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+            
+            OfertaDisciplinas oD1 = new OfertaDisciplinas();
+            oD1.setDisciplina(disciplinaDAO.buscaPorId(1));
+            oD1.setProfessor(servidorDAO.buscaPorId(1));
+            oD1.setAno(Data.converterDataEmAno("2022"));
+            oD1.setSemestre("1");
+            oD1.setHorasSemanais(6);
+            oD1.setAulasSemanais(8);
+
+            adiciona(oD1);
+            
+            OfertaDisciplinas oD2 = new OfertaDisciplinas();
+            oD2.setDisciplina(disciplinaDAO.buscaPorId(2));
+            oD2.setProfessor(servidorDAO.buscaPorId(1));
+            oD2.setAno(Data.converterDataEmAno("2022"));
+            oD2.setSemestre("2");
+            oD2.setHorasSemanais(2);
+            oD2.setAulasSemanais(2);
+
+            adiciona(oD2);
+            
+            OfertaDisciplinas oD3 = new OfertaDisciplinas();
+            oD3.setDisciplina(disciplinaDAO.buscaPorId(3));
+            oD3.setProfessor(servidorDAO.buscaPorId(2));
+            oD3.setAno(Data.converterDataEmAno("2022"));
+            oD3.setSemestre("1");
+            oD3.setHorasSemanais(5);
+            oD3.setAulasSemanais(6);
+
+            adiciona(oD3);
+            
+                        
             inicializado = true;
         }
     }

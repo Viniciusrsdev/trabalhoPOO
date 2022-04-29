@@ -8,7 +8,6 @@ package trabalho.view;
 import java.util.Scanner;
 import trabalho.Utils.Data;
 import trabalho.Utils.Validacao;
-
 import trabalho.controller.ServidorController;
 import trabalho.model.Servidor;
 
@@ -31,8 +30,7 @@ public class ServidorGUI {
         builder.append("\n2 - Editar um Servidor");
         builder.append("\n3 - Deletar um Servidor");
         builder.append("\n4 - Mostrar todos os Servidores");
-        builder.append("\n5 - Alguma coisa");
-        builder.append("\n6 - Voltar\n");
+        builder.append("\n5 - Voltar\n");
         builder.append("\nEscolha uma opcao: ");
 
         System.out.print(builder.toString());
@@ -150,7 +148,7 @@ public class ServidorGUI {
                         boolean foiInserido = servidorController.adicionar(s);
                         if (foiInserido) {
                             System.out.println("Servidor inserido com sucesso");
-                        }else{
+                        } else {
                             System.out.println("Servidor nao inserido");
                         }
                     } else {
@@ -160,7 +158,7 @@ public class ServidorGUI {
 
                 case 2:
                     if (servidorController.checarListaServidor()) {
-                        mostrarTodosServidores();
+
                         Servidor editServidor = selecionarServidor();
                         editaServidor(editServidor);
                         System.out.println("Servidor editado com sucesso");
@@ -172,7 +170,7 @@ public class ServidorGUI {
 
                 case 3:
                     if (servidorController.checarListaServidor()) {
-                        mostrarTodosServidores();
+
                         Servidor removeServidor = selecionarServidor();
                         servidorController.removerPorId(removeServidor.getId());
                         System.out.println("Servidor removido com sucesso");
@@ -189,14 +187,11 @@ public class ServidorGUI {
                 case 5:
                     break;
 
-                case 6:
-                    break;
-
                 default:
                     break;
             }
 
-        } while (opc != 6);
+        } while (opc != 5);
     }
 
 }

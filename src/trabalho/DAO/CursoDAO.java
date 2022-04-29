@@ -7,6 +7,7 @@ package trabalho.DAO;
 
 import trabalho.Utils.Data;
 import trabalho.model.Curso;
+import trabalho.controller.DisciplinaController;
 
 /**
  *
@@ -18,9 +19,9 @@ public class CursoDAO {
     private static boolean inicializado = false;
 
     public CursoDAO() {
-        
+
         if (!inicializado) {
-            
+
             CampusDAO campusDAO = new CampusDAO();
             Curso c1 = new Curso();
             c1.setNome("Engenharia de Computacao");
@@ -68,20 +69,12 @@ public class CursoDAO {
     public void removerPorId(long id) {
         for (int i = 0; i < cursos.length; i++) {
             if (cursos[i] != null && cursos[i].getId() == id) {
+                
+                new DisciplinaController().removerDisciplinasCursoDeletado(cursos[i]);
                 cursos[i] = null;
             }
         }
     }
-
-//    public void removerCursosCampusDeletado(Campus c) {
-//
-//        for (int i = 0; i < cursos.length; i++) {;
-//            if (cursos[i] != null && cursos[i].getCampus() == c) {
-//                cursos[i] = null;
-//            }
-//        }
-//
-//    }
 
     public Curso buscaPorId(long id) {
         for (Curso i : cursos) {
@@ -100,7 +93,6 @@ public class CursoDAO {
             }
         }
         return -1;
-
     }
 
 }

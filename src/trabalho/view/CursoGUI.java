@@ -125,9 +125,9 @@ public class CursoGUI {
                     if (cursoController.checarListaCampus()) {
                         Curso c = criaCurso();
                         boolean foiInserido = cursoController.adicionar(c);
-                        if (foiInserido){
+                        if (foiInserido) {
                             System.out.println("Curso inserido com sucesso");
-                        } else{
+                        } else {
                             System.out.println("Curso nao inserido");
                         }
                     } else {
@@ -147,7 +147,7 @@ public class CursoGUI {
 
                 case 3:
                     if (cursoController.checarListaCampus()) {
-                        mostrarTodoscursos();
+
                         Curso removeCurso = selecionarCurso();
                         cursoController.removerPorId(removeCurso.getId());
                         System.out.println("Curso removido com sucesso");
@@ -169,7 +169,7 @@ public class CursoGUI {
                     break;
             }
 
-        } while (opc != 6);
+        } while (opc != 5);
 
     }
 

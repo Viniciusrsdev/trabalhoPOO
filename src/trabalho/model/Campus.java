@@ -15,11 +15,11 @@ import trabalho.Utils.Data;
  */
 public class Campus {
 
-   private static long serial;
+    private static long serial;
     private final long id;
     private String nome;
     private String abreviacao;
-    private long duracaoAulas;
+    private double duracaoAulas;
     private Date dataCriacaoCampus;
     private String cidade;
     private String bairro;
@@ -52,11 +52,11 @@ public class Campus {
         this.abreviacao = abreviacao;
     }
 
-    public long getDuracaoAulas() {
+    public double getDuracaoAulas() {
         return duracaoAulas;
     }
 
-    public void setDuracaoAulas(long duracaoAulas) {
+    public void setDuracaoAulas(double duracaoAulas) {
         this.duracaoAulas = duracaoAulas;
     }
 
@@ -149,17 +149,17 @@ public class Campus {
         return true;
     }
 
-    private String dataCriacao(){
+    private String dataCriacao() {
         return Data.converterData(dataCriacaoCampus);
     }
-    
+
     @Override
     public String toString() {
-        return id + " -- " + nome + " (" + abreviacao + ") - Duracao das aulas: " + duracaoAulas + " - Criado em: "  + dataCriacao() + "\n" + cep + " - " + cidade + " - Bairro " + bairro + " - " + endereco;
+        return id + " -- " + nome + " (" + abreviacao + ") - Duracao das aulas: " + duracaoAulas + " min - Criado em: " + dataCriacao() + "\n" + cep + " - " + cidade + " - " + endereco + " - Bairro " + bairro;
     }
-    
+
     public String abreviado() {
         return nome + " (" + abreviacao + ")";
     }
-    
+
 }

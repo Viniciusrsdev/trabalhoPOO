@@ -17,6 +17,7 @@ public class ServidorDAO {
     private static boolean inicializado = false;
 
     public ServidorDAO() {
+
         if (!inicializado) {
             CampusDAO campusDAO = new CampusDAO();
             Servidor s1 = new Servidor();
@@ -99,7 +100,6 @@ public class ServidorDAO {
 
     }
 
-    //funcao nao usada no momento
     public int autenticacao(String login, String senha) {
         for (Servidor i : servidores) {
             if (i != null && i.getLogin().equals(login) && i.getSenha().equals(senha)) {

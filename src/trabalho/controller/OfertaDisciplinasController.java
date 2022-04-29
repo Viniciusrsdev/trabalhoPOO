@@ -5,8 +5,12 @@
  */
 package trabalho.controller;
 
+import java.util.Date;
 import trabalho.DAO.OfertaDisciplinasDAO;
+import trabalho.Utils.Data;
 import trabalho.model.OfertaDisciplinas;
+import trabalho.model.Servidor;
+import trabalho.model.Disciplina;
 
 /**
  *
@@ -18,14 +22,34 @@ public class OfertaDisciplinasController {
 
     public boolean adicionar(OfertaDisciplinas ofertadisciplinas) {
         boolean retorno = ofertadisciplinasDAO.adiciona(ofertadisciplinas);
-        if (retorno){
-            new AtividadeController().criaPrepAula(ofertadisciplinas);
-        }
+     //   if (retorno){
+     //       new AtividadeController().criaPrepAula(ofertadisciplinas);
+      //  }
         return retorno;
     }
 
     public OfertaDisciplinas[] listar() {
         return ofertadisciplinasDAO.listar();
+    }
+    
+    public boolean checarListaServidor() {
+        return new ServidorController().checarListaServidor();
+    }
+    
+     public boolean checarListaDisciplina() {
+        return new DisciplinaController().checarListaDisciplina();
+    }
+
+
+    public boolean checarListaOfertaDisciplinas() {
+        OfertaDisciplinas[] ofertadisciplinas = this.listar();
+        boolean temOfertaDisciplinas = false;
+        for (OfertaDisciplinas i : ofertadisciplinas) {
+            if (i != null) {
+                temOfertaDisciplinas = true;
+            }
+        }
+        return temOfertaDisciplinas;
     }
 
     public OfertaDisciplinas buscaPorId(String id) {
@@ -33,9 +57,33 @@ public class OfertaDisciplinasController {
         return ofertadisciplinasDAO.buscaPorId(idOfertaDisciplinas);
     }
 
-    public void removerPorId(String id) {
-        long idOfertaDisciplinas = Long.parseLong(id);
-        ofertadisciplinasDAO.removerPorId(idOfertaDisciplinas);
+    public void removerPorId(Long id) {
+        
+        ofertadisciplinasDAO.removerPorId(id);
+    }
+    
+    public void removerOfertaDisciplinasServidorDeletado(Servidor s) {
+        OfertaDisciplinas[] ofertadisciplinas = this.listar();
+        for (int i = 0; i < ofertadisciplinas.length; i++) {;
+            if (ofertadisciplinas[i] != null && ofertadisciplinas[i].getProfessor() == s) {
+                Long aux = ofertadisciplinas[i].getId();
+                this.removerPorId(aux);
+            }
+        }
+    }
+    public void removerCursosCampusDeletado(Disciplina d) {
+        OfertaDisciplinas[] ofertadisciplinas = this.listar();
+        for (int i = 0; i < ofertadisciplinas.length; i++) {;
+            if (ofertadisciplinas[i] != null && ofertadisciplinas[i].getDisciplina() == d) {
+                Long aux = ofertadisciplinas[i].getId();
+                this.removerPorId(aux);
+            }
+        }
+    }
+    
+    public Date verificarAno(String s) {
+        Date date = Data.converterDataEmAno(s);
+        return date;
     }
 
 }

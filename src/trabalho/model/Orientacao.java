@@ -17,7 +17,7 @@ public class Orientacao {
     private final long id;
     private String tipo;
     private String nomeAluno;
-    private long horasSemanais;
+    private double horasSemanais;
     private Servidor servidor;
     private String inicio;
     private String termino;
@@ -48,11 +48,11 @@ public class Orientacao {
         this.nomeAluno = nomeAluno;
     }
 
-    public long getHorasSemanais() {
+    public double getHorasSemanais() {
         return horasSemanais;
     }
 
-    public void setHorasSemanais(long horasSemanais) {
+    public void setHorasSemanais(double horasSemanais) {
         this.horasSemanais = horasSemanais;
     }
 

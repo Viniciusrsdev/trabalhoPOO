@@ -16,7 +16,7 @@ public class Atividade {
     private static long serial;
     private final long id;
     private String descricao;
-    private long horasSemanais;
+    private double horasSemanais;
     private Servidor servidor;
     private String inicio;
     private String termino;
@@ -39,11 +39,11 @@ public class Atividade {
         this.descricao = descricao;
     }
 
-    public long getHorasSemanais() {
+    public double getHorasSemanais() {
         return horasSemanais;
     }
 
-    public void setHorasSemanais(long horasSemanais) {
+    public void setHorasSemanais(double horasSemanais) {
         this.horasSemanais = horasSemanais;
     }
 

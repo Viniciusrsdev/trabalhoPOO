@@ -13,11 +13,10 @@ import java.time.LocalDateTime;
  */
 public class Disciplina {
 
-     private static long serial;
+    private static long serial;
     private final long id;
     private String nome;
-    private long cargaHoraria;
-
+    private double cargaHoraria;
     private String periodicidade;
     private Curso curso;
     private LocalDateTime dataCriacao;
@@ -39,11 +38,11 @@ public class Disciplina {
         this.nome = nome;
     }
 
-    public long getCargaHoraria() {
+    public double getCargaHoraria() {
         return cargaHoraria;
     }
 
-    public void setCargaHoraria(long cargaHoraria) {
+    public void setCargaHoraria(double cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
 
@@ -104,9 +103,10 @@ public class Disciplina {
         return true;
     }
 
+    
     @Override
     public String toString() {
-        return "Disciplina{" + "id=" + id + ", nome=" + nome + ", cargaHoraria=" + cargaHoraria + ", periodicidade=" + periodicidade + ", curso=" + curso + '}';
+        return id + " -- " + nome + " (" + periodicidade + ") -- Curso: " + curso.getNome() + " -> " + cargaHoraria + " horas";
     }
 
 }

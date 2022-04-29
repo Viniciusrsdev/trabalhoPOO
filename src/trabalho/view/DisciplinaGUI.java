@@ -5,7 +5,6 @@
  */
 package trabalho.view;
 
-
 import java.util.Scanner;
 import trabalho.Utils.Data;
 import trabalho.model.Disciplina;
@@ -43,25 +42,22 @@ public class DisciplinaGUI {
 
     public Disciplina criaDisciplina() {
 
-       Disciplina temp = new Disciplina();
+        Disciplina temp = new Disciplina();
 
         System.out.println("Informe o nome da disciplina");
         temp.setNome(scan.nextLine());
 
         System.out.println("Informe a carga horaria");
         temp.setCargaHoraria(Long.parseLong(scan.nextLine()));
-        
-       
 
-        System.out.println("Informe a periodicidade(semestral/anual)");
-        temp.setPeriodicidade(scan.nextLine());
+        String periodicidade = Validacao.validarStringScan(disciplinaController::verificarPeriodicidade, "Informe a periodicidade(semestral/anual)", "Periodicidadeo inválida.");
+        temp.setPeriodicidade(periodicidade.toUpperCase());
 
         CursoGUI c = new CursoGUI();
         temp.setCurso(c.selecionarCurso());
-        
-         
 
         temp.setDataCriacao(Data.dataAtual());
+        temp.setDataModificacao(Data.dataAtual());
 
         return temp;
     }
@@ -74,13 +70,11 @@ public class DisciplinaGUI {
         System.out.println("Informe a carga horaria");
         temp.setCargaHoraria(Long.parseLong(scan.nextLine()));
 
-        System.out.println("Informe a periodicidade(semestral/anual)");
-        temp.setPeriodicidade(scan.nextLine());
+        String periodicidade = Validacao.validarStringScan(disciplinaController::verificarPeriodicidade, "Informe a periodicidade(semestral/anual)", "Periodicidadeo inválida.");
+        temp.setPeriodicidade(periodicidade.toUpperCase());
 
         CursoGUI c = new CursoGUI();
         temp.setCurso(c.selecionarCurso());
-        
-      
 
         temp.setDataModificacao(Data.dataAtual());
     }
@@ -111,46 +105,47 @@ public class DisciplinaGUI {
         do {
 
             opc = recebeOpcaoUsuario();
-            long idDisciplina;
 
             switch (opc) {
 
                 case 1:
-                    Disciplina d = criaDisciplina();
+                    if (disciplinaController.checarListaCurso()) {
+                        Disciplina d = criaDisciplina();
 
-                    boolean foiInserido = disciplinaController.adicionar(d);
+                        boolean foiInserido = disciplinaController.adicionar(d);
 
-                    if (foiInserido) {
-                        System.out.println("disciplina inserido com sucesso");
+                        if (foiInserido) {
+                            System.out.println("disciplina inserido com sucesso");
+                        } else {
+                            System.out.println("disciplina nao inserido");
+                        }
                     } else {
-                        System.out.println("disciplina nao inserido");
+                        System.out.println("Disciplina nao inserida, nenhum curso registrado");
                     }
 
                     break;
                 case 2:
-                    Disciplina editDisciplina = selecionarDisciplina();
-                    if (editDisciplina != null) {
+                    if (disciplinaController.checarListaDisciplina()) {
+                        Disciplina editDisciplina = selecionarDisciplina();
+
                         editaDisciplina(editDisciplina);
-                        System.out.println("Disciplina editado com sucesso");
+                        System.out.println("Disciplina editada com sucesso");
                     } else {
-                        System.out.println("Disciplina nao encontrada, tente novamente");
+                        System.out.println("Nao existe nenhuma disciplina registrada");
                     }
 
                     break;
 
                 case 3:
-                    mostrarTodasDisciplinas();
+                    if (disciplinaController.checarListaDisciplina()) {
 
-                    System.out.println("Informe o id da disciplina que deseja excluir");
-                    String id = scan.nextLine();
+                        Disciplina removeDisciplina = selecionarDisciplina();
+                        disciplinaController.removerPorId(removeDisciplina.getId());
 
-                    Disciplina removeDisciplina = disciplinaController.buscaPorId(id);
-
-                    if (removeDisciplina != null) {
-                        disciplinaController.removerPorId(id);
                         System.out.println("Disciplina removida com sucesso");
+
                     } else {
-                        System.out.println("Disciplina nao encontrada, tente novamente");
+                        System.out.println("Nenhuma disciplina encontrada, tente novamente");
                     }
 
                     break;
