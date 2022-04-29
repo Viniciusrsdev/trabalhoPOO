@@ -5,6 +5,7 @@
  */
 package trabalho.DAO;
 
+import trabalho.Utils.Data;
 import trabalho.model.Atividade;
 
 /**
@@ -18,6 +19,40 @@ public class AtividadeDAO {
 
     public AtividadeDAO() {
         if (!inicializado) {
+            
+            ServidorDAO servidorDAO = new ServidorDAO();
+            Atividade a1 = new Atividade();
+            
+            a1.setDescricao("Preparacao de Aula - Banco de Dados");
+            a1.setHorasSemanais(5);
+            a1.setServidor(servidorDAO.buscaPorId(3));
+            a1.setInicio(Data.converterData("02/02/2022"));
+            a1.setTermino(Data.converterData("22/06/2022"));
+      
+
+            adiciona(a1);
+            
+            Atividade a2 = new Atividade();
+            
+            a2.setDescricao("Preparacao de Aula - Programacao Orientada a Objetos");
+            a2.setHorasSemanais(6);
+            a2.setServidor(servidorDAO.buscaPorId(1));
+            a2.setInicio(Data.converterData("12/02/2020"));
+            a2.setTermino(Data.converterData("27/06/2020"));
+      
+
+            adiciona(a2);
+            
+            Atividade a3 = new Atividade();
+            
+            a3.setDescricao("Preparacao de Aula - Programacao Orientada a Objetos");
+            a3.setHorasSemanais(6);
+            a3.setServidor(servidorDAO.buscaPorId(1));
+            a3.setInicio(Data.converterData("02/02/2020"));
+            a3.setTermino(Data.converterData("22/06/2020"));
+      
+
+            adiciona(a3);
 
             inicializado = true;
         }

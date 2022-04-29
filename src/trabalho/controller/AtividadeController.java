@@ -5,10 +5,12 @@
  */
 package trabalho.controller;
 
+import java.util.Date;
 import trabalho.model.Atividade;
 import trabalho.DAO.AtividadeDAO;
 import trabalho.Utils.Data;
 import trabalho.model.OfertaDisciplinas;
+import trabalho.model.Servidor;
 
 /**
  *
@@ -26,29 +28,59 @@ public class AtividadeController {
     public Atividade[] listar() {
         return atividadeDAO.listar();
     }
+    
+     public boolean checarListaServidor() {
+        return new ServidorController().checarListaServidor();
+    }
+
+    public boolean checarListaAtividade() {
+        Atividade[] atividade = this.listar();
+        boolean temAtividade = false;
+        for (Atividade i : atividade) {
+            if (i != null) {
+                temAtividade = true;
+            }
+        }
+        return temAtividade;
+    }
 
     public Atividade buscaPorId(String id) {
         long idAtividade = Long.parseLong(id);
         return atividadeDAO.buscaPorId(idAtividade);
     }
 
-    public void removerPorId(String id) {
-        long idAtividade = Long.parseLong(id);
-        atividadeDAO.removerPorId(idAtividade);
+    public void removerPorId(Long id) {
+      
+        atividadeDAO.removerPorId(id);
     }
     
-    public void criaPrepAula(OfertaDisciplinas ofertadisciplinas){
-        Atividade temp = new Atividade();
+        public void removerAtividadesServidorDeletado(Servidor s) {
+        Atividade[] atividades = this.listar();
+        for (int i = 0; i < atividades.length; i++) {;
+            if (atividades[i] != null && atividades[i].getServidor() == s) {
+                Long aux = atividades[i].getId();
+                this.removerPorId(aux);
+            }
+        }
+    }
+    
+//    public void criaPrepAula(OfertaDisciplinas ofertadisciplinas){
+//        Atividade temp = new Atividade();
+//        
+//        temp.setDescricao("Preparacao de aula: " + ofertadisciplinas.getDisciplina().getNome());
+//        
+//        temp.setHorasSemanais(ofertadisciplinas.getHorasSemanais());
+//        
+//        temp.setServidor(ofertadisciplinas.getProfessor());
+//        
+//        temp.setDataCriacao(Data.dataAtual());
+//
+//        adicionar(temp);
+//
+//    }
         
-        temp.setDescricao("Preparacao de aula: " + ofertadisciplinas.getDisciplina().getNome());
-        
-        temp.setHorasSemanais(ofertadisciplinas.getHorasSemanais());
-        
-        temp.setServidor(ofertadisciplinas.getProfessor());
-        
-        temp.setDataCriacao(Data.dataAtual());
-
-        adicionar(temp);
-
+        public Date verificarData(String s) {
+        Date date = Data.converterData(s);
+        return date;
     }
 }

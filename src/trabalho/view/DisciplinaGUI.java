@@ -48,7 +48,7 @@ public class DisciplinaGUI {
         temp.setNome(scan.nextLine());
 
         System.out.println("Informe a carga horaria");
-        temp.setCargaHoraria(Long.parseLong(scan.nextLine()));
+        temp.setCargaHoraria(Double.parseDouble(scan.nextLine()));
 
         String periodicidade = Validacao.validarStringScan(disciplinaController::verificarPeriodicidade, "Informe a periodicidade(semestral/anual)", "Periodicidadeo inválida.");
         temp.setPeriodicidade(periodicidade.toUpperCase());
@@ -68,7 +68,7 @@ public class DisciplinaGUI {
         temp.setNome(scan.nextLine());
 
         System.out.println("Informe a carga horaria");
-        temp.setCargaHoraria(Long.parseLong(scan.nextLine()));
+        temp.setCargaHoraria(Double.parseDouble(scan.nextLine()));
 
         String periodicidade = Validacao.validarStringScan(disciplinaController::verificarPeriodicidade, "Informe a periodicidade(semestral/anual)", "Periodicidadeo inválida.");
         temp.setPeriodicidade(periodicidade.toUpperCase());

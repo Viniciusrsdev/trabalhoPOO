@@ -5,7 +5,7 @@
  */
 package trabalho.view;
 
-
+import java.util.Date;
 import java.util.Scanner;
 import trabalho.Utils.Data;
 import trabalho.Utils.Validacao;
@@ -32,8 +32,7 @@ public class AtividadeGUI {
         builder.append("\n2 - Editar uma Atividade");
         builder.append("\n3 - Deletar uma Atividade");
         builder.append("\n4 - Mostrar todas as Atividades");
-        builder.append("\n5 - Alguma coisa");
-        builder.append("\n6 - Voltar\n");
+        builder.append("\n5 - Voltar\n");
         builder.append("\nEscolha uma opcao: ");
 
         System.out.print(builder.toString());
@@ -44,23 +43,25 @@ public class AtividadeGUI {
     public Atividade criaAtividade() {
 
         Atividade temp = new Atividade();
+        Date data;
 
         System.out.println("Informe a descricao da atividade");
         temp.setDescricao(scan.nextLine());
 
         System.out.println("Informe a quantidade de horas semanais");
-        temp.setHorasSemanais(Long.parseLong(scan.nextLine()));
+        temp.setHorasSemanais(Double.parseDouble(scan.nextLine()));
 
         ServidorGUI s = new ServidorGUI();
         temp.setServidor(s.selecionarServidor());
 
-        System.out.println("Data de inicio");
-        temp.setInicio(scan.nextLine());
+        data = Validacao.validarDateScan(atividadeController::verificarData, "Informe a data de inicio da atividade campus(dd/MM/yyyy):", "Data inválida");
+        temp.setInicio(data);
 
-        System.out.println("Data de termino");
-        temp.setTermino(scan.nextLine());
+        data = Validacao.validarDateScan(atividadeController::verificarData, "Informe a data de termino ou previsao de termino da atividade(dd/MM/yyyy):", "Data inválida");
+        temp.setTermino(data);
 
         temp.setDataCriacao(Data.dataAtual());
+        temp.setDataModificacao(Data.dataAtual());
 
         return temp;
 
@@ -68,20 +69,22 @@ public class AtividadeGUI {
 
     public void editaAtividade(Atividade temp) {
 
+        Date data;
+
         System.out.println("Informe a descricao da atividade");
         temp.setDescricao(scan.nextLine());
 
         System.out.println("Informe a quantidade de horas semanais");
-        temp.setHorasSemanais(Long.parseLong(scan.nextLine()));
+        temp.setHorasSemanais(Double.parseDouble(scan.nextLine()));
 
         ServidorGUI s = new ServidorGUI();
         temp.setServidor(s.selecionarServidor());
 
-        System.out.println("Data de inicio");
-        temp.setInicio(scan.nextLine());
+        data = Validacao.validarDateScan(atividadeController::verificarData, "Informe a data de inicio da atividade campus(dd/MM/yyyy):", "Data inválida");
+        temp.setInicio(data);
 
-        System.out.println("Data de termino");
-        temp.setTermino(scan.nextLine());
+        data = Validacao.validarDateScan(atividadeController::verificarData, "Informe a data de termino ou previsao de termino da atividade(dd/MM/yyyy):", "Data inválida");
+        temp.setTermino(data);
 
         temp.setDataModificacao(Data.dataAtual());
     }
@@ -112,47 +115,46 @@ public class AtividadeGUI {
         do {
 
             opc = recebeOpcaoUsuario();
-            long idAtividade;
 
             switch (opc) {
 
                 case 1:
-                    Atividade a = criaAtividade();
+                    if (atividadeController.checarListaServidor()) {
+                        Atividade a = criaAtividade();
 
-                    boolean foiInserido = atividadeController.adicionar(a);
+                        boolean foiInserido = atividadeController.adicionar(a);
 
-                    if (foiInserido) {
-                        System.out.println("Atividade inserida com sucesso");
+                        if (foiInserido) {
+                            System.out.println("Atividade inserida com sucesso");
+                        } else {
+                            System.out.println("Atividade nao inserida");
+                        }
                     } else {
-                        System.out.println("Atividade nao inserida");
+                        System.out.println("Atividade nao inserida, nenhum Servidor registrado");
                     }
 
                     break;
                 case 2:
-                    Atividade editAtividade = selecionarAtividade();
 
-                    if (editAtividade != null) {
+                    if (atividadeController.checarListaAtividade()) {
+                        Atividade editAtividade = selecionarAtividade();
                         editaAtividade(editAtividade);
                         System.out.println("Atividade editado com sucesso");
                     } else {
-                        System.out.println("Atividade nao encontrada, tente novamente");
+                        System.out.println("Nao existe nenhuma Atividade registrada");
                     }
 
                     break;
 
                 case 3:
-                    mostrarTodasAtividades();
 
-                    System.out.println("Informe o id da Atividade que deseja excluir");
-                    String id = scan.nextLine();
+                    if (atividadeController.checarListaAtividade()) {
 
-                    Atividade removeAtividade = atividadeController.buscaPorId(id);
-
-                    if (removeAtividade != null) {
-                        atividadeController.removerPorId(id);
+                        Atividade removeAtividade = selecionarAtividade();
+                        atividadeController.removerPorId(removeAtividade.getId());
                         System.out.println("Atividade removida com sucesso");
                     } else {
-                        System.out.println("Atividade nao encontrada, tente novamente");
+                        System.out.println("Nenhuma Atividade encontrada, tente novamente");
                     }
 
                     break;
@@ -165,13 +167,10 @@ public class AtividadeGUI {
 
                     break;
 
-                case 6:
-                    break;
-
                 default:
                     break;
             }
 
-        } while (opc != 6);
+        } while (opc != 5);
     }
 }

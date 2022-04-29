@@ -51,7 +51,7 @@ public class CampusGUI {
         temp.setAbreviacao(scan.nextLine());
 
         System.out.println("Informe a duracao das aulas do campus (em minutos)");
-        temp.setDuracaoAulas(Long.parseLong(scan.nextLine()));
+        temp.setDuracaoAulas(Double.parseDouble(scan.nextLine()));
 
         data = Validacao.validarDateScan(campusController::verificarData, "Informe a data de criacao do campus(dd/MM/yyyy):", "Data inválida");
         temp.setDataCriacaoCampus(data);
@@ -85,7 +85,7 @@ public class CampusGUI {
         temp.setAbreviacao(scan.nextLine());
 
         System.out.println("Informe a duracao das aulas do campus (em minutos)");
-        temp.setDuracaoAulas(Long.parseLong(scan.nextLine()));
+        temp.setDuracaoAulas(Double.parseDouble(scan.nextLine()));
 
         data = Validacao.validarDateScan(campusController::verificarData, "Informe a data de criacao do campus(dd/MM/yyyy):", "Data inválida");
         temp.setDataCriacaoCampus(data);
