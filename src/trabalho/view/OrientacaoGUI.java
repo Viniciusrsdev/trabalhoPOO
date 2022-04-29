@@ -5,12 +5,11 @@
  */
 package trabalho.view;
 
-
+import java.util.Date;
 import java.util.Scanner;
 import trabalho.Utils.Data;
 import trabalho.Utils.Validacao;
 import trabalho.controller.OrientacaoController;
-
 import trabalho.model.Orientacao;
 
 /**
@@ -32,8 +31,7 @@ public class OrientacaoGUI {
         builder.append("\n2 - Editar uma Orientacao");
         builder.append("\n3 - Deletar uma Orientacao");
         builder.append("\n4 - Mostrar todas as Orientacoes");
-        builder.append("\n5 - Alguma coisa");
-        builder.append("\n6 - Voltar\n");
+        builder.append("\n5 - Voltar\n");
         builder.append("\nEscolha uma opcao: ");
 
         System.out.print(builder.toString());
@@ -45,48 +43,53 @@ public class OrientacaoGUI {
 
         Orientacao temp = new Orientacao();
 
-        System.out.println("Informe o tipo da orientacao");
-        temp.setTipo(scan.nextLine());
+        Date data;
+
+        String tipo = Validacao.validarStringScan(orientacaoController::verificarTipo, "Informe o tipo da orientacao (ensino, pesquisa, extensao, estagio, tcc, mestrado, doutorado)", "Tipo da orientacao inválido.");
+        temp.setTipo(tipo.toUpperCase());
 
         System.out.println("Informe o nome do aluno");
         temp.setNomeAluno(scan.nextLine());
 
         System.out.println("Informe a quantidade de horas semanais");
-        temp.setHorasSemanais(Long.parseLong(scan.nextLine()));
+        temp.setHorasSemanais(Double.parseDouble(scan.nextLine()));
 
         ServidorGUI s = new ServidorGUI();
         temp.setServidor(s.selecionarServidor());
 
-        System.out.println("Data de inicio");
-        temp.setInicio(scan.nextLine());
+        data = Validacao.validarDateScan(orientacaoController::verificarData, "Informe a data de inicio da orientacao (dd/MM/yyyy):", "Data inválida");
+        temp.setInicio(data);
 
-        System.out.println("Data de termino");
-        temp.setTermino(scan.nextLine());
+        data = Validacao.validarDateScan(orientacaoController::verificarData, "Informe a data de termino ou previsao de termino da orientacao(dd/MM/yyyy):", "Data inválida");
+        temp.setTermino(data);
 
         temp.setDataCriacao(Data.dataAtual());
+        temp.setDataModificacao(Data.dataAtual());
 
         return temp;
     }
 
     public void editaOrientacao(Orientacao temp) {
 
-        System.out.println("Informe o tipo da orientacao");
-        temp.setTipo(scan.nextLine());
+        Date data;
+
+        String tipo = Validacao.validarStringScan(orientacaoController::verificarTipo, "Informe o tipo da orientacao (ensino, pesquisa, extensao, estagio, tcc, mestrado, doutorado)", "Tipo da orientacao inválido.");
+        temp.setTipo(tipo.toUpperCase());
 
         System.out.println("Informe o nome do aluno");
         temp.setNomeAluno(scan.nextLine());
 
         System.out.println("Informe a quantidade de horas semanais");
-        temp.setHorasSemanais(Long.parseLong(scan.nextLine()));
+        temp.setHorasSemanais(Double.parseDouble(scan.nextLine()));
 
         ServidorGUI s = new ServidorGUI();
         temp.setServidor(s.selecionarServidor());
 
-        System.out.println("Data de inicio");
-        temp.setInicio(scan.nextLine());
+        data = Validacao.validarDateScan(orientacaoController::verificarData, "Informe a data de inicio da orientacao (dd/MM/yyyy):", "Data inválida");
+        temp.setInicio(data);
 
-        System.out.println("Data de termino");
-        temp.setTermino(scan.nextLine());
+        data = Validacao.validarDateScan(orientacaoController::verificarData, "Informe a data de termino ou previsao de termino da orientacao(dd/MM/yyyy):", "Data inválida");
+        temp.setTermino(data);
 
         temp.setDataModificacao(Data.dataAtual());
 
@@ -118,11 +121,12 @@ public class OrientacaoGUI {
         do {
 
             opc = recebeOpcaoUsuario();
-            long idOrientacao;
+           
 
             switch (opc) {
 
                 case 1:
+                    if (orientacaoController.checarListaServidor()) {
                     Orientacao o = criaOrientacao();
 
                     boolean foiInserido = orientacaoController.adicionar(o);
@@ -132,34 +136,37 @@ public class OrientacaoGUI {
                     } else {
                         System.out.println("Orientacao nao inserida");
                     }
+                     } else {
+                        System.out.println("Curso nao inserido, nenhum Campus registrado");
+                    }
 
                     break;
                 case 2:
-                    Orientacao editOrientacao = selecionarOrientacao();
-
-                    if (editOrientacao != null) {
+         
+                    
+                     if (orientacaoController.checarListaOrientacao()) {
+                        Orientacao editOrientacao = selecionarOrientacao();
                         editaOrientacao(editOrientacao);
                         System.out.println("Orientacao editada com sucesso");
                     } else {
-                        System.out.println("Orientacao nao encontrada, tente novamente");
+                        System.out.println("Nao existe nenhuma Orientacao registrada");
                     }
 
                     break;
 
                 case 3:
-                    mostrarTodasOrientacoes();
 
-                    System.out.println("Informe o id da Orientacao que deseja excluir");
-                    String id = scan.nextLine();
+                    
+                    
+                         if (orientacaoController.checarListaOrientacao()) {
 
-                    Orientacao removeOrientacao = orientacaoController.buscaPorId(id);
-
-                    if (removeOrientacao != null) {
-                        orientacaoController.removerPorId(id);
+                        Orientacao removeOrientacao = selecionarOrientacao();
+                        orientacaoController.removerPorId(removeOrientacao.getId());
                         System.out.println("Orientacao removida com sucesso");
                     } else {
-                        System.out.println("Orientacao nao encontrada, tente novamente");
+                        System.out.println("Nenhuma Orientacao encontrada, tente novamente");
                     }
+
 
                     break;
 
@@ -171,13 +178,11 @@ public class OrientacaoGUI {
 
                     break;
 
-                case 6:
-                    break;
-
+    
                 default:
                     break;
             }
 
-        } while (opc != 6);
+        } while (opc != 5);
     }
 }

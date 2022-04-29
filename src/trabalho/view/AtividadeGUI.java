@@ -54,7 +54,7 @@ public class AtividadeGUI {
         ServidorGUI s = new ServidorGUI();
         temp.setServidor(s.selecionarServidor());
 
-        data = Validacao.validarDateScan(atividadeController::verificarData, "Informe a data de inicio da atividade campus(dd/MM/yyyy):", "Data inválida");
+        data = Validacao.validarDateScan(atividadeController::verificarData, "Informe a data de inicio da atividade (dd/MM/yyyy):", "Data inválida");
         temp.setInicio(data);
 
         data = Validacao.validarDateScan(atividadeController::verificarData, "Informe a data de termino ou previsao de termino da atividade(dd/MM/yyyy):", "Data inválida");
@@ -80,7 +80,7 @@ public class AtividadeGUI {
         ServidorGUI s = new ServidorGUI();
         temp.setServidor(s.selecionarServidor());
 
-        data = Validacao.validarDateScan(atividadeController::verificarData, "Informe a data de inicio da atividade campus(dd/MM/yyyy):", "Data inválida");
+        data = Validacao.validarDateScan(atividadeController::verificarData, "Informe a data de inicio da atividade (dd/MM/yyyy):", "Data inválida");
         temp.setInicio(data);
 
         data = Validacao.validarDateScan(atividadeController::verificarData, "Informe a data de termino ou previsao de termino da atividade(dd/MM/yyyy):", "Data inválida");

@@ -6,6 +6,7 @@
 package trabalho.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  *
@@ -19,8 +20,8 @@ public class Orientacao {
     private String nomeAluno;
     private double horasSemanais;
     private Servidor servidor;
-    private String inicio;
-    private String termino;
+    private Date inicio;
+    private Date termino;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
@@ -64,19 +65,19 @@ public class Orientacao {
         this.servidor = servidor;
     }
 
-    public String getInicio() {
+    public Date getInicio() {
         return inicio;
     }
 
-    public void setInicio(String inicio) {
+    public void setInicio(Date inicio) {
         this.inicio = inicio;
     }
 
-    public String getTermino() {
+    public Date getTermino() {
         return termino;
     }
 
-    public void setTermino(String termino) {
+    public void setTermino(Date termino) {
         this.termino = termino;
     }
 
@@ -123,7 +124,7 @@ public class Orientacao {
 
     @Override
     public String toString() {
-        return "Orientacoes{" + "id=" + id + ", tipo=" + tipo + ", nomeAluno=" + nomeAluno + ", horasSemanais=" + horasSemanais + ", servidor=" + servidor + ", inicio=" + inicio + ", termino=" + termino + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+        return id + " -- " + servidor + " (" + tipo + ") -- Aluno: " + nomeAluno + " -- Horas semanais: " + horasSemanais + " -> Inicio: "  + inicio + " Termino: " + termino;
     }
 
 }

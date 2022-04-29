@@ -5,6 +5,8 @@
  */
 package trabalho.DAO;
 
+import trabalho.Utils.Data;
+
 import trabalho.model.Orientacao;
 
 /**
@@ -18,6 +20,44 @@ public class OrientacaoDAO {
 
     public OrientacaoDAO() {
         if (!inicializado) {
+            
+            ServidorDAO servidorDAO = new ServidorDAO();
+            
+            Orientacao o1 = new Orientacao();
+            
+            o1.setTipo("ENSINO");
+            o1.setNomeAluno("Vinicius Rodrigues de Sousa");
+            o1.setHorasSemanais(2);
+            o1.setServidor(servidorDAO.buscaPorId(1));
+            o1.setInicio(Data.converterData("02/02/2022"));
+            o1.setTermino(Data.converterData("22/06/2022"));
+      
+
+            adiciona(o1);
+            
+            Orientacao o2 = new Orientacao();
+            
+            o2.setTipo("Pesquisa");
+            o2.setNomeAluno("Caio Freitas");
+            o2.setHorasSemanais(3);
+            o2.setServidor(servidorDAO.buscaPorId(1));
+            o2.setInicio(Data.converterData("02/02/2022"));
+            o2.setTermino(Data.converterData("22/06/2022"));
+      
+
+            adiciona(o2);
+            
+            Orientacao o3 = new Orientacao();
+            
+            o3.setTipo("ENSINO");
+            o3.setNomeAluno("Ronildo Cesar");
+            o3.setHorasSemanais(2);
+            o3.setServidor(servidorDAO.buscaPorId(2));
+            o3.setInicio(Data.converterData("02/02/2022"));
+            o3.setTermino(Data.converterData("22/06/2022"));
+      
+
+            adiciona(o3);
             inicializado = true;
         }
     }
