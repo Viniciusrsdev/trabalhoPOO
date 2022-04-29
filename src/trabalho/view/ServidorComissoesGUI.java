@@ -5,12 +5,11 @@
  */
 package trabalho.view;
 
+import java.util.Date;
 import java.util.Scanner;
 import trabalho.Utils.Data;
 import trabalho.Utils.Validacao;
-
 import trabalho.controller.ServidorComissoesController;
-
 import trabalho.model.ServidorComissoes;
 
 /**
@@ -32,8 +31,7 @@ public class ServidorComissoesGUI {
         builder.append("\n2 - Editar uma ServidorComissoes");
         builder.append("\n3 - Deletar uma ServidorComissoes");
         builder.append("\n4 - Mostrar todas as ServidorComissoes");
-        builder.append("\n5 - Alguma coisa");
-        builder.append("\n6 - Voltar\n");
+        builder.append("\n5 - Voltar\n");
         builder.append("\nEscolha uma opcao: ");
 
         System.out.print(builder.toString());
@@ -44,6 +42,7 @@ public class ServidorComissoesGUI {
     public ServidorComissoes criaServidorComissoes() {
 
         ServidorComissoes temp = new ServidorComissoes();
+        Date data;
 
         ComissaoGUI co = new ComissaoGUI();
         temp.setComissao(co.selecionarComissao());
@@ -51,16 +50,17 @@ public class ServidorComissoesGUI {
         ServidorGUI s = new ServidorGUI();
         temp.setServidor(s.selecionarServidor());
 
-        System.out.println("Informe o papel do servidor");
-        temp.setPapel(scan.nextLine());
+        String papel = Validacao.validarStringScan(servidorcomissoesController::verificarPapel, "Informe o papel do servidor (presidente, vice, secretario, participante, suplente)", "Papel inválido.");
+        temp.setPapel(papel.toUpperCase());
 
-        System.out.println("Data de inicio");
-        temp.setInicio(scan.nextLine());
+        data = Validacao.validarDateScan(servidorcomissoesController::verificarData, "Informe a data de entrada do servidor na comissao (dd/MM/yyyy):", "Data inválida");
+        temp.setEntrada(data);
 
-        System.out.println("Data de termino");
-        temp.setTermino(scan.nextLine());
+        data = Validacao.validarDateScan(servidorcomissoesController::verificarData, "Informe a data de saida ou previsao de saida do servidor na comissao(dd/MM/yyyy):", "Data inválida");
+        temp.setSaida(data);
 
         temp.setDataCriacao(Data.dataAtual());
+        temp.setDataModificacao(Data.dataAtual());
 
         return temp;
 
@@ -68,20 +68,24 @@ public class ServidorComissoesGUI {
 
     public void editaServidorComissoes(ServidorComissoes temp) {
 
+        
+        Date data;
+
         ComissaoGUI co = new ComissaoGUI();
         temp.setComissao(co.selecionarComissao());
 
         ServidorGUI s = new ServidorGUI();
         temp.setServidor(s.selecionarServidor());
 
-        System.out.println("Informe o papel do servidor");
-        temp.setPapel(scan.nextLine());
+        String papel = Validacao.validarStringScan(servidorcomissoesController::verificarPapel, "Informe o papel do servidor (presidente, vice, secretario, participante, suplente)", "Papel inválido.");
+        temp.setPapel(papel.toUpperCase());
 
-        System.out.println("Data de inicio");
-        temp.setInicio(scan.nextLine());
+        data = Validacao.validarDateScan(servidorcomissoesController::verificarData, "Informe a data de entrada do servidor na comissao (dd/MM/yyyy):", "Data inválida");
+        temp.setEntrada(data);
 
-        System.out.println("Data de termino");
-        temp.setTermino(scan.nextLine());
+        data = Validacao.validarDateScan(servidorcomissoesController::verificarData, "Informe a data de saida ou previsao de saida do servidor na comissao(dd/MM/yyyy):", "Data inválida");
+        temp.setSaida(data);
+
 
         temp.setDataModificacao(Data.dataAtual());
     }
@@ -112,11 +116,12 @@ public class ServidorComissoesGUI {
         do {
 
             opc = recebeOpcaoUsuario();
-            long idServidorComissoes;
+            
 
             switch (opc) {
 
                 case 1:
+                    if (servidorcomissoesController.checarListaServidor() && servidorcomissoesController.checarListaComissao()) {
                     ServidorComissoes sC = criaServidorComissoes();
 
                     boolean foiInserido = servidorcomissoesController.adicionar(sC);
@@ -125,34 +130,31 @@ public class ServidorComissoesGUI {
                         System.out.println("ServidorComissoes inserida com sucesso");
                     } else {
                         System.out.println("ServidorComissoes nao inserida");
+                    }} else {
+                        System.out.println("ServidorComissoes nao inserido, nenhum Servidor ou Comissao registrado");
                     }
 
                     break;
                 case 2:
-                    ServidorComissoes editServidorComissoes = selecionarServidorComissoes();
-
-                    if (editServidorComissoes != null) {
+                    if (servidorcomissoesController.checarListaServidorComissoes()) {
+                        ServidorComissoes editServidorComissoes = selecionarServidorComissoes();
                         editaServidorComissoes(editServidorComissoes);
-                        System.out.println("ServidorComissoes editado com sucesso");
+                        System.out.println("ServidorComissoes editada com sucesso");
                     } else {
-                        System.out.println("ServidorComissoes nao encontrada, tente novamente");
+                        System.out.println("Nao existe nenhuma ServidorComissoes registrada");
                     }
 
                     break;
 
                 case 3:
-                    mostrarTodosServidorComissoes();
+           
+                         if (servidorcomissoesController.checarListaServidorComissoes()) {
 
-                    System.out.println("Informe o id da ServidorComissoes que deseja excluir");
-                    String id = scan.nextLine();
-
-                    ServidorComissoes removeServidorComissoes = servidorcomissoesController.buscaPorId(id);
-
-                    if (removeServidorComissoes != null) {
-                        servidorcomissoesController.removerPorId(id);
+                        ServidorComissoes removeServidorComissoes = selecionarServidorComissoes();
+                        servidorcomissoesController.removerPorId(removeServidorComissoes.getId());
                         System.out.println("ServidorComissoes removida com sucesso");
                     } else {
-                        System.out.println("ServidorComissoes nao encontrada, tente novamente");
+                        System.out.println("Nenhuma ServidorComissoes encontrada, tente novamente");
                     }
 
                     break;
@@ -165,13 +167,12 @@ public class ServidorComissoesGUI {
 
                     break;
 
-                case 6:
-                    break;
+              
 
                 default:
                     break;
             }
 
-        } while (opc != 6);
+        } while (opc != 5);
     }
 }

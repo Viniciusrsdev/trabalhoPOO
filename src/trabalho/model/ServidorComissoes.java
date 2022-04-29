@@ -6,6 +6,8 @@
 package trabalho.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+import trabalho.Utils.Data;
 
 /**
  *
@@ -18,8 +20,8 @@ public class ServidorComissoes {
     private Comissao comissao;
     private Servidor servidor;
     private String papel;
-    private String inicio;
-    private String termino;
+    private Date entrada;
+    private Date saida;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
@@ -55,22 +57,23 @@ public class ServidorComissoes {
         this.papel = papel;
     }
 
-    public String getInicio() {
-        return inicio;
+    public Date getEntrada() {
+        return entrada;
     }
 
-    public void setInicio(String inicio) {
-        this.inicio = inicio;
+    public void setEntrada(Date entrada) {
+        this.entrada = entrada;
     }
 
-    public String getTermino() {
-        return termino;
+    public Date getSaida() {
+        return saida;
     }
 
-    public void setTermino(String termino) {
-        this.termino = termino;
+    public void setSaida(Date saida) {
+        this.saida = saida;
     }
 
+   
     public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
@@ -112,9 +115,13 @@ public class ServidorComissoes {
         return true;
     }
 
+    private String formatarDatas(){
+        return " -> Entrou em " + Data.converterData(entrada) + " e saiu em " + Data.converterData(saida);
+    }
+    
     @Override
     public String toString() {
-        return "ServidorComissoes{" + "id=" + id + ", comissao=" + comissao + ", servidor=" + servidor + ", papel=" + papel + ", inicio=" + inicio + ", termino=" + termino + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+        return id + " -- " + comissao.getNome() + " - " + servidor.getNome() + "(" + papel + ")" + formatarDatas();
     }
 
 }

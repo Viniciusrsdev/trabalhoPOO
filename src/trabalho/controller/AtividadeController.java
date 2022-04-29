@@ -9,7 +9,6 @@ import java.util.Date;
 import trabalho.model.Atividade;
 import trabalho.DAO.AtividadeDAO;
 import trabalho.Utils.Data;
-import trabalho.model.OfertaDisciplinas;
 import trabalho.model.Servidor;
 
 /**

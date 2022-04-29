@@ -5,8 +5,10 @@
  */
 package trabalho.controller;
 
+import java.util.Date;
 import trabalho.model.Comissao;
 import trabalho.DAO.ComissaoDAO;
+import trabalho.Utils.Data;
 
 /**
  *
@@ -24,14 +26,39 @@ public class ComissaoController {
     public Comissao[] listar() {
         return comissaoDAO.listar();
     }
+    
+ 
+    
+    public boolean checarListaComissao() {
+        Comissao[] comissao = this.listar();
+        boolean temComissao = false;
+        for (Comissao i : comissao) {
+            if (i != null) {
+                temComissao = true;
+            }
+        }
+        return temComissao;
+    }
 
     public Comissao buscaPorId(String id) {
         long idComissao = Long.parseLong(id);
         return comissaoDAO.buscaPorId(idComissao);
     }
 
-    public void removerPorId(String id) {
-        long idComissao = Long.parseLong(id);
-        comissaoDAO.removerPorId(idComissao);
+    public void removerPorId(Long id) {
+        comissaoDAO.removerPorId(id);
+    }
+    
+    public boolean verificarEstado(String estado) {
+        if (!"ATIVO".equals(estado.toUpperCase()) && !"INATIVO".equals(estado.toUpperCase())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+   public Date verificarData(String s) {
+        Date date = Data.converterData(s);
+        return date;
     }
 }

@@ -10,7 +10,6 @@ import java.util.Scanner;
 import trabalho.Utils.Data;
 import trabalho.Utils.Validacao;
 import trabalho.controller.AtividadeController;
-
 import trabalho.model.Atividade;
 
 /**

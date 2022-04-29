@@ -6,6 +6,8 @@
 package trabalho.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+import trabalho.Utils.Data;
 
 /**
  *
@@ -15,9 +17,10 @@ public class Comissao {
 
     private static long serial;
     private final long id;
-    private long horasSemanais;
-    private String inicio;
-    private String termino;
+    private String nome;
+    private double horasSemanais;
+    private Date inicio;
+    private Date termino;
     private String estado;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
@@ -30,27 +33,35 @@ public class Comissao {
         return id;
     }
 
-    public long getHorasSemanais() {
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public double getHorasSemanais() {
         return horasSemanais;
     }
 
-    public void setHorasSemanais(long horasSemanais) {
+    public void setHorasSemanais(double horasSemanais) {
         this.horasSemanais = horasSemanais;
     }
 
-    public String getInicio() {
+    public Date getInicio() {
         return inicio;
     }
 
-    public void setInicio(String inicio) {
+    public void setInicio(Date inicio) {
         this.inicio = inicio;
     }
 
-    public String getTermino() {
+    public Date getTermino() {
         return termino;
     }
 
-    public void setTermino(String termino) {
+    public void setTermino(Date termino) {
         this.termino = termino;
     }
 
@@ -59,7 +70,7 @@ public class Comissao {
     }
 
     public void setEstado(String estado) {
-        this.estado = estado;
+        this.estado = estado.toUpperCase();
     }
 
     public LocalDateTime getDataCriacao() {
@@ -103,9 +114,18 @@ public class Comissao {
         return true;
     }
 
+    private String formatarDatas() {
+        if (estado == "ATIVO") {
+            return Data.converterData(inicio) + "ate" + Data.converterData(termino);
+        }
+        else{
+            return "Ativo desde " + Data.converterData(inicio);
+        }
+    }
+
     @Override
     public String toString() {
-        return "Comissoes{" + "id=" + id + ", horasSemanais=" + horasSemanais + ", inicio=" + inicio + ", termino=" + termino + ", estado=" + estado + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+        return id + " -- " + nome + " (" + estado + ") -- Horas semanais: " + horasSemanais + " -> " + formatarDatas();
     }
 
 }

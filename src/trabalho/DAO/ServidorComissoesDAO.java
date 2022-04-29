@@ -5,6 +5,7 @@
  */
 package trabalho.DAO;
 
+import trabalho.Utils.Data;
 import trabalho.model.ServidorComissoes;
 
 /**
@@ -18,6 +19,37 @@ public class ServidorComissoesDAO {
 
     public ServidorComissoesDAO() {
         if (!inicializado) {
+            
+            ServidorDAO servidorDAO = new ServidorDAO();
+            ComissaoDAO comissaoDAO = new ComissaoDAO();
+
+            ServidorComissoes c1 = new ServidorComissoes();
+            c1.setComissao(comissaoDAO.buscaPorId(1));
+            c1.setServidor(servidorDAO.buscaPorId(1));
+            c1.setPapel("PRESIDENTE");
+            c1.setEntrada(Data.converterData("05/11/2006"));
+            c1.setSaida(Data.converterData("05/04/2007"));
+
+            adiciona(c1);
+
+            ServidorComissoes c2 = new ServidorComissoes();
+            c2.setComissao(comissaoDAO.buscaPorId(2));
+            c2.setServidor(servidorDAO.buscaPorId(2));
+            c2.setPapel("VICE");
+            c2.setEntrada(Data.converterData("05/12/2006"));
+            c2.setSaida(Data.converterData("05/04/2007"));
+
+            adiciona(c2);
+
+            ServidorComissoes c3 = new ServidorComissoes();
+            c3.setComissao(comissaoDAO.buscaPorId(3));
+            c3.setServidor(servidorDAO.buscaPorId(3));
+            c3.setPapel("PRESIDENTE");
+            c3.setEntrada(Data.converterData("05/11/2006"));
+            c3.setSaida(Data.converterData("05/04/2007"));
+
+            adiciona(c3);
+
             inicializado = true;
         }
 
@@ -31,7 +63,6 @@ public class ServidorComissoesDAO {
         } else {
             return false;
         }
-
     }
 
     public ServidorComissoes[] listar() {
@@ -53,7 +84,6 @@ public class ServidorComissoesDAO {
             }
         }
         return null;
-
     }
 
     private int proximaPosicaoLivre() {
@@ -64,7 +94,6 @@ public class ServidorComissoesDAO {
 
         }
         return -1;
-
     }
 
 }

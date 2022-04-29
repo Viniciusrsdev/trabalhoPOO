@@ -5,6 +5,7 @@
  */
 package trabalho.DAO;
 
+import trabalho.Utils.Data;
 import trabalho.model.Comissao;
 
 /**
@@ -18,7 +19,31 @@ public class ComissaoDAO {
 
     public ComissaoDAO() {
         if (!inicializado) {
+            
+            Comissao c1 = new Comissao();
+            c1.setNome("Comissão de Ética");
+            c1.setEstado("INATIVO");
+            c1.setInicio(Data.converterData("02/02/2022"));
+            c1.setTermino(Data.converterData("22/06/2022"));
+            c1.setHorasSemanais(5);
 
+            adiciona(c1);
+            
+            Comissao c2 = new Comissao();
+            c2.setNome("Comissão Interna de Supervisão");
+            c2.setEstado("ATIVO");
+            c2.setInicio(Data.converterData("02/02/2022"));
+            c2.setHorasSemanais(3);
+
+            adiciona(c2);
+            
+            Comissao c3 = new Comissao();
+            c3.setNome("Comissão Própria de Avaliação");
+            c3.setEstado("ATIVO");
+            c3.setInicio(Data.converterData("02/02/2022"));
+            c3.setHorasSemanais(4);
+
+            adiciona(c3);
             inicializado = true;
         }
 

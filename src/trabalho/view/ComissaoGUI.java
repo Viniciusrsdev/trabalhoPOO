@@ -5,7 +5,7 @@
  */
 package trabalho.view;
 
-
+import java.util.Date;
 import java.util.Scanner;
 import trabalho.Utils.Data;
 import trabalho.Utils.Validacao;
@@ -43,20 +43,27 @@ public class ComissaoGUI {
     public Comissao criaComissao() {
 
         Comissao temp = new Comissao();
+        Date data;
+
+        System.out.println("Informe o nome da comissao");
+        temp.setNome(scan.nextLine());
 
         System.out.println("Informe a quantidade de horas semanais");
-        temp.setHorasSemanais(Long.parseLong(scan.nextLine()));
+        temp.setHorasSemanais(Double.parseDouble(scan.nextLine()));
 
-        System.out.println("Data de inicio");
-        temp.setInicio(scan.nextLine());
+        temp.setEstado(Validacao.validarStringScan(comissaoController::verificarEstado, "Informe o estado da comissao :", "Estado invalido"));
 
-        System.out.println("Data de termino");
-        temp.setTermino(scan.nextLine());
+        data = Validacao.validarDateScan(comissaoController::verificarData, "Informe a data de início da comissão (dd/MM/yyyy):", "Ano inválido");
+        temp.setInicio(data);
+        
 
-        System.out.println("Informe o estado da comissao");
-        temp.setEstado(scan.nextLine());
+        if ("INATIVO".equals(temp.getEstado())) {
+            data = Validacao.validarDateScan(comissaoController::verificarData, "Informe a data de término da comissão (dd/MM/yyyy):", "Ano inválido");
+            temp.setTermino(data);
+        }
 
         temp.setDataCriacao(Data.dataAtual());
+        temp.setDataModificacao(Data.dataAtual());
 
         return temp;
 
@@ -64,19 +71,26 @@ public class ComissaoGUI {
 
     public void editaComissao(Comissao temp) {
 
+        Date data;
+
+        System.out.println("Informe o nome da comissao");
+        temp.setNome(scan.nextLine());
+
         System.out.println("Informe a quantidade de horas semanais");
-        temp.setHorasSemanais(Long.parseLong(scan.nextLine()));
+        temp.setHorasSemanais(Double.parseDouble(scan.nextLine()));
 
-        System.out.println("Data de inicio");
-        temp.setInicio(scan.nextLine());
+        temp.setEstado(Validacao.validarStringScan(comissaoController::verificarEstado, "Informe o estado da comissao :", "Estado invalido"));
 
-        System.out.println("Data de termino");
-        temp.setTermino(scan.nextLine());
+        data = Validacao.validarDateScan(comissaoController::verificarData, "Informe a data de início da comissão (dd/MM/yyyy):", "Ano inválido");
+        temp.setInicio(data);
 
-        System.out.println("Informe o estado da comissao");
-        temp.setEstado(scan.nextLine());
+        if ("INATIVO".equals(temp.getEstado())) {
+            data = Validacao.validarDateScan(comissaoController::verificarData, "Informe a data de término da comissão (dd/MM/yyyy):", "Ano inválido");
+            temp.setTermino(data);
+        }
 
         temp.setDataModificacao(Data.dataAtual());
+
     }
 
     public void mostrarTodasComissoes() {
@@ -105,7 +119,6 @@ public class ComissaoGUI {
         do {
 
             opc = recebeOpcaoUsuario();
-            String idComissao;
 
             switch (opc) {
 
@@ -122,30 +135,23 @@ public class ComissaoGUI {
 
                     break;
                 case 2:
-                    Comissao editComissao = selecionarComissao();
-
-                    if (editComissao != null) {
+                    if (comissaoController.checarListaComissao()) {
+                        Comissao editComissao = selecionarComissao();
                         editaComissao(editComissao);
                         System.out.println("Comissao editado com sucesso");
                     } else {
-                        System.out.println("Comissao nao encontrada, tente novamente");
+                        System.out.println("Nao existe nenhuma Comissao registrada");
                     }
 
                     break;
 
                 case 3:
-                    mostrarTodasComissoes();
-
-                    System.out.println("Informe o id da Comissao que deseja excluir");
-                    String id = scan.nextLine();
-
-                    Comissao removeComissao = comissaoController.buscaPorId(id);
-
-                    if (removeComissao != null) {
-                        comissaoController.removerPorId(id);
-                        System.out.println("Comissao removida com sucesso");
+                    if (comissaoController.checarListaComissao()) {
+                        Comissao removeComissao = selecionarComissao();
+                        comissaoController.removerPorId(removeComissao.getId());
+                        System.out.println("Comissao excluida com sucesso");
                     } else {
-                        System.out.println("Comissao nao encontrada, tente novamente");
+                        System.out.println("Nao existe nenhuma Comissao registrada");
                     }
 
                     break;
@@ -158,13 +164,12 @@ public class ComissaoGUI {
 
                     break;
 
-                case 6:
-                    break;
+     
 
                 default:
                     break;
             }
 
-        } while (opc != 6);
+        } while (opc != 5);
     }
 }
