@@ -68,7 +68,6 @@ public class ServidorComissoesGUI {
 
     public void editaServidorComissoes(ServidorComissoes temp) {
 
-        
         Date data;
 
         ComissaoGUI co = new ComissaoGUI();
@@ -85,7 +84,6 @@ public class ServidorComissoesGUI {
 
         data = Validacao.validarDateScan(servidorcomissoesController::verificarData, "Informe a data de saida ou previsao de saida do servidor na comissao(dd/MM/yyyy):", "Data inválida");
         temp.setSaida(data);
-
 
         temp.setDataModificacao(Data.dataAtual());
     }
@@ -116,21 +114,21 @@ public class ServidorComissoesGUI {
         do {
 
             opc = recebeOpcaoUsuario();
-            
 
             switch (opc) {
 
                 case 1:
                     if (servidorcomissoesController.checarListaServidor() && servidorcomissoesController.checarListaComissao()) {
-                    ServidorComissoes sC = criaServidorComissoes();
+                        ServidorComissoes sC = criaServidorComissoes();
 
-                    boolean foiInserido = servidorcomissoesController.adicionar(sC);
+                        boolean foiInserido = servidorcomissoesController.adicionar(sC);
 
-                    if (foiInserido) {
-                        System.out.println("ServidorComissoes inserida com sucesso");
+                        if (foiInserido) {
+                            System.out.println("ServidorComissoes inserida com sucesso");
+                        } else {
+                            System.out.println("ServidorComissoes nao inserida");
+                        }
                     } else {
-                        System.out.println("ServidorComissoes nao inserida");
-                    }} else {
                         System.out.println("ServidorComissoes nao inserido, nenhum Servidor ou Comissao registrado");
                     }
 
@@ -147,8 +145,8 @@ public class ServidorComissoesGUI {
                     break;
 
                 case 3:
-           
-                         if (servidorcomissoesController.checarListaServidorComissoes()) {
+
+                    if (servidorcomissoesController.checarListaServidorComissoes()) {
 
                         ServidorComissoes removeServidorComissoes = selecionarServidorComissoes();
                         servidorcomissoesController.removerPorId(removeServidorComissoes.getId());
@@ -166,8 +164,6 @@ public class ServidorComissoesGUI {
                 case 5:
 
                     break;
-
-              
 
                 default:
                     break;

@@ -25,11 +25,11 @@ public class DisciplinaController {
     public Disciplina[] listar() {
         return disciplinaDAO.listar();
     }
-    
+
     public boolean checarListaCurso() {
         return new CursoController().checarListaCurso();
     }
-    
+
     public boolean checarListaDisciplina() {
         Disciplina[] disciplina = this.listar();
         boolean temDisciplina = false;
@@ -46,11 +46,11 @@ public class DisciplinaController {
         return disciplinaDAO.buscaPorId(idDisciplina);
     }
 
-    public void removerPorId(Long id) {
-        
+    public void removerPorId(long id) {
+
         disciplinaDAO.removerPorId(id);
     }
-    
+
     public void removerDisciplinasCursoDeletado(Curso c) {
         Disciplina[] disciplinas = this.listar();
         for (int i = 0; i < disciplinas.length; i++) {;
@@ -60,6 +60,7 @@ public class DisciplinaController {
             }
         }
     }
+
     public boolean verificarPeriodicidade(String periodicidade) {
         if (!"SEMESTRAL".equals(periodicidade.toUpperCase()) && !"ANUAL".equals(periodicidade.toUpperCase())) {
             return false;

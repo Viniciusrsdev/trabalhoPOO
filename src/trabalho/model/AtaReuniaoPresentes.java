@@ -96,7 +96,7 @@ public class AtaReuniaoPresentes {
 
     @Override
     public String toString() {
-        return "AtaReuniaoPresentes{" + "id=" + id + ", comissao=" + comissao + ", ata=" + ata + ", servidor=" + servidor + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+        return id + " -- " + comissao.getNome() + " (" + ata.getConteudo() + " -> " + servidor.getNome();
     }
 
 }

@@ -80,7 +80,6 @@ public class OfertaDisciplinas {
     public void setAulasSemanais(double aulasSemanais) {
         this.aulasSemanais = aulasSemanais;
     }
-    
 
     public LocalDateTime getDataCriacao() {
         return dataCriacao;

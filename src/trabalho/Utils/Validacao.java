@@ -20,7 +20,7 @@ public class Validacao {
         } while (!validado);
         return s;
     }
-    
+
     public static Boolean validarBooleanScan(Function<String, Boolean> validador, String titulo, String erro) {
         Scanner scan = new Scanner(System.in);
         boolean validado;
@@ -50,7 +50,6 @@ public class Validacao {
         return object;
     }
 
-    //Testando validação de datas!
     public static Date validarDateScan(Function<String, Object> validador, String titulo, String erro) {
         Scanner scan = new Scanner(System.in);
         Date date;

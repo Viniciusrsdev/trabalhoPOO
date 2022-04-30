@@ -54,8 +54,7 @@ public class ServidorController {
         return null;
     }
 
-    public void removerPorId(Long id) {
-        //remover em cascata as dependencias
+    public void removerPorId(long id) {
         servidorDAO.removerPorId(id);
     }
 

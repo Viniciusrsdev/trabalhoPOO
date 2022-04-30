@@ -65,7 +65,7 @@ public class OfertaDisciplinasGUI {
         }
 
         temp.setHorasSemanais(temp.getDisciplina().getCargaHoraria() / (meses * 4));
-        
+
         temp.setAulasSemanais(temp.getHorasSemanais() / ((temp.getDisciplina().getCurso().getCampus().getDuracaoAulas()) / 60));
 
         temp.setDataCriacao(Data.dataAtual());
@@ -75,7 +75,7 @@ public class OfertaDisciplinasGUI {
     }
 
     public void editaOfertaDisciplinas(OfertaDisciplinas temp) {
-        
+
         Date data;
         long meses;
 
@@ -98,7 +98,7 @@ public class OfertaDisciplinasGUI {
         }
 
         temp.setHorasSemanais(temp.getDisciplina().getCargaHoraria() / (meses * 4));
-        
+
         temp.setAulasSemanais(temp.getHorasSemanais() / ((temp.getDisciplina().getCurso().getCampus().getDuracaoAulas()) / 60));
 
         temp.setDataModificacao(Data.dataAtual());
@@ -179,8 +179,6 @@ public class OfertaDisciplinasGUI {
 
                 case 5:
                     break;
-
-            
 
                 default:
                     break;

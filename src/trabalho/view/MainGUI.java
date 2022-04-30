@@ -121,7 +121,7 @@ public class MainGUI {
 
                 case 3:
                     new DisciplinaGUI().menuDisciplina();
-                  
+
                     break;
 
                 case 4:
@@ -145,7 +145,7 @@ public class MainGUI {
                     break;
 
                 case 9:
-                     new AtaReuniaoGUI().menuAtaReuniao();
+                    new AtaReuniaoGUI().menuAtaReuniao();
                     break;
 
                 case 10:

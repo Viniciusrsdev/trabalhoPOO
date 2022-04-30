@@ -49,10 +49,10 @@ public class OrientacaoController {
     }
 
     public void removerPorId(long id) {
- 
+
         orientacaoDAO.removerPorId(id);
     }
-    
+
     public void removerOrientacoesServidorDeletado(Servidor s) {
         Orientacao[] orientacao = this.listar();
         for (int i = 0; i < orientacao.length; i++) {;
@@ -70,8 +70,8 @@ public class OrientacaoController {
             return true;
         }
     }
-    
-     public Date verificarData(String s) {
+
+    public Date verificarData(String s) {
         Date date = Data.converterData(s);
         return date;
     }

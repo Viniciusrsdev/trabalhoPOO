@@ -21,7 +21,7 @@ public class OfertaDisciplinasDAO {
         if (!inicializado) {
             ServidorDAO servidorDAO = new ServidorDAO();
             DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
-            
+
             OfertaDisciplinas oD1 = new OfertaDisciplinas();
             oD1.setDisciplina(disciplinaDAO.buscaPorId(1));
             oD1.setProfessor(servidorDAO.buscaPorId(1));
@@ -31,7 +31,7 @@ public class OfertaDisciplinasDAO {
             oD1.setAulasSemanais(8);
 
             adiciona(oD1);
-            
+
             OfertaDisciplinas oD2 = new OfertaDisciplinas();
             oD2.setDisciplina(disciplinaDAO.buscaPorId(2));
             oD2.setProfessor(servidorDAO.buscaPorId(1));
@@ -41,7 +41,7 @@ public class OfertaDisciplinasDAO {
             oD2.setAulasSemanais(2);
 
             adiciona(oD2);
-            
+
             OfertaDisciplinas oD3 = new OfertaDisciplinas();
             oD3.setDisciplina(disciplinaDAO.buscaPorId(3));
             oD3.setProfessor(servidorDAO.buscaPorId(2));
@@ -51,8 +51,7 @@ public class OfertaDisciplinasDAO {
             oD3.setAulasSemanais(6);
 
             adiciona(oD3);
-            
-                        
+
             inicializado = true;
         }
     }
@@ -104,18 +103,16 @@ public class OfertaDisciplinasDAO {
     }
 
     //funcao nao utilizada
-   // public void mostraOfertasDisciplina(Long id) {
+    // public void mostraOfertasDisciplina(Long id) {
     //    boolean tem = false;
-
-     //   for (OfertaDisciplinas i : ofertasDisciplinas) {
-      //      if (i != null && i.getDisciplina().getId() == id) {
-       //         System.out.println(i);
-       //         tem = true;
-       //     }
-      //  }
-      //  if (!tem) {
-      //      System.out.println("não existe oferta de disciplina cadastrado");
-     //   }
- //   }
-
+    //   for (OfertaDisciplinas i : ofertasDisciplinas) {
+    //      if (i != null && i.getDisciplina().getId() == id) {
+    //         System.out.println(i);
+    //         tem = true;
+    //     }
+    //  }
+    //  if (!tem) {
+    //      System.out.println("não existe oferta de disciplina cadastrado");
+    //   }
+    //   }
 }

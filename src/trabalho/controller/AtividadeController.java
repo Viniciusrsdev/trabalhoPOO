@@ -27,8 +27,8 @@ public class AtividadeController {
     public Atividade[] listar() {
         return atividadeDAO.listar();
     }
-    
-     public boolean checarListaServidor() {
+
+    public boolean checarListaServidor() {
         return new ServidorController().checarListaServidor();
     }
 
@@ -48,12 +48,12 @@ public class AtividadeController {
         return atividadeDAO.buscaPorId(idAtividade);
     }
 
-    public void removerPorId(Long id) {
-      
+    public void removerPorId(long id) {
+
         atividadeDAO.removerPorId(id);
     }
-    
-        public void removerAtividadesServidorDeletado(Servidor s) {
+
+    public void removerAtividadesServidorDeletado(Servidor s) {
         Atividade[] atividades = this.listar();
         for (int i = 0; i < atividades.length; i++) {;
             if (atividades[i] != null && atividades[i].getServidor() == s) {
@@ -62,7 +62,7 @@ public class AtividadeController {
             }
         }
     }
-    
+
 //    public void criaPrepAula(OfertaDisciplinas ofertadisciplinas){
 //        Atividade temp = new Atividade();
 //        
@@ -77,8 +77,7 @@ public class AtividadeController {
 //        adicionar(temp);
 //
 //    }
-        
-        public Date verificarData(String s) {
+    public Date verificarData(String s) {
         Date date = Data.converterData(s);
         return date;
     }

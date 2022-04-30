@@ -6,6 +6,7 @@
 package trabalho.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  *
@@ -16,7 +17,7 @@ public class AtaReuniao {
     private static long serial;
     private final long id;
     private Comissao comissao;
-    private String data;
+    private Date data;
     private String conteudo;
     private Servidor secretario;
     private LocalDateTime dataCriacao;
@@ -38,11 +39,11 @@ public class AtaReuniao {
         this.comissao = comissao;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
@@ -105,7 +106,7 @@ public class AtaReuniao {
 
     @Override
     public String toString() {
-        return "Reunioes{" + "id=" + id + ", comissao=" + comissao + ", data=" + data + ", conteudo=" + conteudo + ", secretario=" + secretario + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+        return id + " -- " + comissao.getNome() + " (" + secretario.getNome() + ") -- " + data + " -> " + conteudo;
     }
 
 }

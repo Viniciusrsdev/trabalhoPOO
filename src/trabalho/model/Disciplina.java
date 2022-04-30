@@ -103,7 +103,6 @@ public class Disciplina {
         return true;
     }
 
-    
     @Override
     public String toString() {
         return id + " -- " + nome + " (" + periodicidade + ") -- Curso: " + curso.getNome() + " -> " + cargaHoraria + " horas";

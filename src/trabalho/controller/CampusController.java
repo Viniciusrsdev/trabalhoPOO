@@ -43,7 +43,7 @@ public class CampusController {
         return campusDAO.buscaPorId(idCampus);
     }
 
-    public void removerPorId(Long id) {
+    public void removerPorId(long id) {
         campusDAO.removerPorId(id);
     }
 

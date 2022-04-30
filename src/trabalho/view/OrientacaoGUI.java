@@ -121,30 +121,28 @@ public class OrientacaoGUI {
         do {
 
             opc = recebeOpcaoUsuario();
-           
 
             switch (opc) {
 
                 case 1:
                     if (orientacaoController.checarListaServidor()) {
-                    Orientacao o = criaOrientacao();
+                        Orientacao o = criaOrientacao();
 
-                    boolean foiInserido = orientacaoController.adicionar(o);
+                        boolean foiInserido = orientacaoController.adicionar(o);
 
-                    if (foiInserido) {
-                        System.out.println("orientacao inserida com sucesso");
+                        if (foiInserido) {
+                            System.out.println("orientacao inserida com sucesso");
+                        } else {
+                            System.out.println("Orientacao nao inserida");
+                        }
                     } else {
-                        System.out.println("Orientacao nao inserida");
-                    }
-                     } else {
                         System.out.println("Curso nao inserido, nenhum Campus registrado");
                     }
 
                     break;
                 case 2:
-         
-                    
-                     if (orientacaoController.checarListaOrientacao()) {
+
+                    if (orientacaoController.checarListaOrientacao()) {
                         Orientacao editOrientacao = selecionarOrientacao();
                         editaOrientacao(editOrientacao);
                         System.out.println("Orientacao editada com sucesso");
@@ -156,9 +154,7 @@ public class OrientacaoGUI {
 
                 case 3:
 
-                    
-                    
-                         if (orientacaoController.checarListaOrientacao()) {
+                    if (orientacaoController.checarListaOrientacao()) {
 
                         Orientacao removeOrientacao = selecionarOrientacao();
                         orientacaoController.removerPorId(removeOrientacao.getId());
@@ -166,7 +162,6 @@ public class OrientacaoGUI {
                     } else {
                         System.out.println("Nenhuma Orientacao encontrada, tente novamente");
                     }
-
 
                     break;
 
@@ -178,7 +173,6 @@ public class OrientacaoGUI {
 
                     break;
 
-    
                 default:
                     break;
             }

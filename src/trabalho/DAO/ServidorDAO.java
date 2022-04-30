@@ -5,6 +5,11 @@
  */
 package trabalho.DAO;
 
+import trabalho.controller.AtaReuniaoPresentesController;
+import trabalho.controller.AtividadeController;
+import trabalho.controller.OfertaDisciplinasController;
+import trabalho.controller.OrientacaoController;
+import trabalho.controller.ServidorComissoesController;
 import trabalho.model.Servidor;
 
 /**
@@ -72,6 +77,12 @@ public class ServidorDAO {
     public void removerPorId(long id) {
         for (int i = 0; i < servidores.length; i++) {
             if (servidores[i] != null && servidores[i].getId() == id) {
+
+                new ServidorComissoesController().removerServidorComissoesServidorDeletado(servidores[i]);
+                new OrientacaoController().removerOrientacoesServidorDeletado(servidores[i]);
+                new OfertaDisciplinasController().removerOfertaDisciplinasServidorDeletado(servidores[i]);
+                new AtividadeController().removerAtividadesServidorDeletado(servidores[i]);
+                new AtaReuniaoPresentesController().removerAtaReuniaoPresentesServidorDeletado(servidores[i]);
                 servidores[i] = null;
 
             }

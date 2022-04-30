@@ -6,6 +6,8 @@
 package trabalho.DAO;
 
 import trabalho.Utils.Data;
+import trabalho.controller.AtaReuniaoPresentesController;
+import trabalho.controller.ServidorComissoesController;
 import trabalho.model.Comissao;
 
 /**
@@ -67,6 +69,9 @@ public class ComissaoDAO {
     public void removerPorId(long id) {
         for (int i = 0; i < comissoes.length; i++) {
             if (comissoes[i] != null && comissoes[i].getId() == id) {
+                
+                new ServidorComissoesController().removerServidorComissoesComissaoDeletado(comissoes[i]);
+                new AtaReuniaoPresentesController().removerAtaReuniaoPresentesComissaoDeletado(comissoes[i]);
                 comissoes[i] = null;
             }
         }

@@ -5,7 +5,6 @@
  */
 package trabalho.view;
 
-
 import java.util.Scanner;
 
 import trabalho.controller.AtaReuniaoPresentesController;
@@ -33,8 +32,7 @@ public class AtaReuniaoPresentesGUI {
         builder.append("\n2 - Editar uma AtaReuniaoPresentes");
         builder.append("\n3 - Deletar uma AtaReuniaoPresentes");
         builder.append("\n4 - Mostrar todas as AtaReuniaoPresentes");
-        builder.append("\n5 - Alguma coisa");
-        builder.append("\n6 - Voltar\n");
+        builder.append("\n5 - Voltar\n");
         builder.append("\nEscolha uma opcao: ");
 
         System.out.print(builder.toString());
@@ -56,11 +54,14 @@ public class AtaReuniaoPresentesGUI {
         temp.setServidor(s.selecionarServidor());
 
         temp.setDataCriacao(Data.dataAtual());
+        temp.setDataModificacao(Data.dataAtual());
+
         return temp;
 
     }
 
     public void editaAtaReuniaoPresentes(AtaReuniaoPresentes temp) {
+
         ComissaoGUI co = new ComissaoGUI();
         temp.setComissao(co.selecionarComissao());
 
@@ -100,47 +101,44 @@ public class AtaReuniaoPresentesGUI {
         do {
 
             opc = recebeOpcaoUsuario();
-            long idAtaReuniaoPresentes;
 
             switch (opc) {
 
                 case 1:
-                    AtaReuniaoPresentes aRP = criaAtaReuniaoPresentes();
+                    if (atareuniaopresentesController.checarListaServidor() && atareuniaopresentesController.checarListaComissao() && atareuniaopresentesController.checarListaAtaReuniao()) {
+                        AtaReuniaoPresentes aRP = criaAtaReuniaoPresentes();
 
-                    boolean foiInserido = atareuniaopresentesController.adicionar(aRP);
+                        boolean foiInserido = atareuniaopresentesController.adicionar(aRP);
 
-                    if (foiInserido) {
-                        System.out.println("AtaReuniaoPresentes inserida com sucesso");
+                        if (foiInserido) {
+                            System.out.println("AtaReuniaoPresentes inserida com sucesso");
+                        } else {
+                            System.out.println("AtaReuniaoPresentes nao inserida");
+                        }
                     } else {
-                        System.out.println("AtaReuniaoPresentes nao inserida");
+                        System.out.println("Atividade nao inserida, nenhum Servidor registrado");
                     }
 
                     break;
                 case 2:
-                    AtaReuniaoPresentes editAtaReuniaoPresentes = selecionarAtaReuniaoPresentes();
-
-                    if (editAtaReuniaoPresentes != null) {
+                    if (atareuniaopresentesController.checarListaAtaReuniaoPresentes()) {
+                        AtaReuniaoPresentes editAtaReuniaoPresentes = selecionarAtaReuniaoPresentes();
                         editaAtaReuniaoPresentes(editAtaReuniaoPresentes);
                         System.out.println("AtaReuniaoPresentes editado com sucesso");
                     } else {
-                        System.out.println("AtaReuniaoPresentes nao encontrada, tente novamente");
+                        System.out.println("Nao existe nenhuma AtaReuniaoPresentes registrada");
                     }
 
                     break;
 
                 case 3:
-                    mostrarTodasAtaReuniaoPresentes();
+                    if (atareuniaopresentesController.checarListaAtaReuniaoPresentes()) {
 
-                    System.out.println("Informe o id da AtaReuniaoPresentes que deseja excluir");
-                    String id = scan.nextLine();
-
-                    AtaReuniaoPresentes removeAtaReuniaoPresentes = atareuniaopresentesController.buscaPorId(id);
-
-                    if (removeAtaReuniaoPresentes != null) {
-                        atareuniaopresentesController.removerPorId(id);
+                        AtaReuniaoPresentes removeAtaReuniaoPresentes = selecionarAtaReuniaoPresentes();
+                        atareuniaopresentesController.removerPorId(removeAtaReuniaoPresentes.getId());
                         System.out.println("AtaReuniaoPresentes removida com sucesso");
                     } else {
-                        System.out.println("AtaReuniaoPresentes nao encontrada, tente novamente");
+                        System.out.println("Nenhuma AtaReuniaoPresentes encontrada, tente novamente");
                     }
 
                     break;
@@ -153,13 +151,10 @@ public class AtaReuniaoPresentesGUI {
 
                     break;
 
-                case 6:
-                    break;
-
                 default:
                     break;
             }
 
-        } while (opc != 6);
+        } while (opc != 5);
     }
 }

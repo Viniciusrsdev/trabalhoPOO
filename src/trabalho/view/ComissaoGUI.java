@@ -31,7 +31,6 @@ public class ComissaoGUI {
         builder.append("\n2 - Editar uma Comissao");
         builder.append("\n3 - Deletar uma Comissao");
         builder.append("\n4 - Mostrar todas as Comissoes");
-        builder.append("\n5 - Alguma coisa");
         builder.append("\n6 - Voltar\n");
         builder.append("\nEscolha uma opcao: ");
 
@@ -55,7 +54,6 @@ public class ComissaoGUI {
 
         data = Validacao.validarDateScan(comissaoController::verificarData, "Informe a data de início da comissão (dd/MM/yyyy):", "Ano inválido");
         temp.setInicio(data);
-        
 
         if ("INATIVO".equals(temp.getEstado())) {
             data = Validacao.validarDateScan(comissaoController::verificarData, "Informe a data de término da comissão (dd/MM/yyyy):", "Ano inválido");
@@ -163,8 +161,6 @@ public class ComissaoGUI {
                 case 5:
 
                     break;
-
-     
 
                 default:
                     break;

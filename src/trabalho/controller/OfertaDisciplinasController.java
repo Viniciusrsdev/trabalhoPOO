@@ -22,24 +22,23 @@ public class OfertaDisciplinasController {
 
     public boolean adicionar(OfertaDisciplinas ofertadisciplinas) {
         boolean retorno = ofertadisciplinasDAO.adiciona(ofertadisciplinas);
-     //   if (retorno){
-     //       new AtividadeController().criaPrepAula(ofertadisciplinas);
-      //  }
+        //   if (retorno){
+        //       new AtividadeController().criaPrepAula(ofertadisciplinas);
+        //  }
         return retorno;
     }
 
     public OfertaDisciplinas[] listar() {
         return ofertadisciplinasDAO.listar();
     }
-    
+
     public boolean checarListaServidor() {
         return new ServidorController().checarListaServidor();
     }
-    
-     public boolean checarListaDisciplina() {
+
+    public boolean checarListaDisciplina() {
         return new DisciplinaController().checarListaDisciplina();
     }
-
 
     public boolean checarListaOfertaDisciplinas() {
         OfertaDisciplinas[] ofertadisciplinas = this.listar();
@@ -57,11 +56,11 @@ public class OfertaDisciplinasController {
         return ofertadisciplinasDAO.buscaPorId(idOfertaDisciplinas);
     }
 
-    public void removerPorId(Long id) {
-        
+    public void removerPorId(long id) {
+
         ofertadisciplinasDAO.removerPorId(id);
     }
-    
+
     public void removerOfertaDisciplinasServidorDeletado(Servidor s) {
         OfertaDisciplinas[] ofertadisciplinas = this.listar();
         for (int i = 0; i < ofertadisciplinas.length; i++) {;
@@ -71,7 +70,8 @@ public class OfertaDisciplinasController {
             }
         }
     }
-    public void removerCursosCampusDeletado(Disciplina d) {
+
+    public void removerOfertaDisciplinasDisciplinaDeletado(Disciplina d) {
         OfertaDisciplinas[] ofertadisciplinas = this.listar();
         for (int i = 0; i < ofertadisciplinas.length; i++) {;
             if (ofertadisciplinas[i] != null && ofertadisciplinas[i].getDisciplina() == d) {
@@ -80,7 +80,7 @@ public class OfertaDisciplinasController {
             }
         }
     }
-    
+
     public Date verificarAno(String s) {
         Date date = Data.converterDataEmAno(s);
         return date;

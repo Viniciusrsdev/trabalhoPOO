@@ -19,6 +19,34 @@ public class AtaReuniaoPresentesDAO {
     public AtaReuniaoPresentesDAO() {
         if (!inicializado) {
 
+            ComissaoDAO comissaoDAO = new ComissaoDAO();
+            ServidorDAO servidorDAO = new ServidorDAO();
+            AtaReuniaoDAO atareuniaoDAO = new AtaReuniaoDAO();
+
+            AtaReuniaoPresentes aRP1 = new AtaReuniaoPresentes();
+
+            aRP1.setComissao(comissaoDAO.buscaPorId(1));
+            aRP1.setServidor(servidorDAO.buscaPorId(1));
+            aRP1.setAta(atareuniaoDAO.buscaPorId(1));
+
+            adiciona(aRP1);
+
+            AtaReuniaoPresentes aRP2 = new AtaReuniaoPresentes();
+
+            aRP2.setComissao(comissaoDAO.buscaPorId(2));
+            aRP2.setServidor(servidorDAO.buscaPorId(2));
+            aRP2.setAta(atareuniaoDAO.buscaPorId(2));
+
+            adiciona(aRP2);
+
+            AtaReuniaoPresentes aRP3 = new AtaReuniaoPresentes();
+
+            aRP3.setComissao(comissaoDAO.buscaPorId(3));
+            aRP3.setServidor(servidorDAO.buscaPorId(3));
+            aRP3.setAta(atareuniaoDAO.buscaPorId(3));
+
+            adiciona(aRP3);
+
             inicializado = true;
         }
 

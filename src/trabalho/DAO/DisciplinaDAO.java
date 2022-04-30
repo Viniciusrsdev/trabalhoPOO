@@ -5,6 +5,7 @@
  */
 package trabalho.DAO;
 
+import trabalho.controller.OfertaDisciplinasController;
 import trabalho.model.Disciplina;
 
 /**
@@ -18,7 +19,7 @@ public class DisciplinaDAO {
 
     public DisciplinaDAO() {
         if (!inicializado) {
-            
+
             CursoDAO cursoDAO = new CursoDAO();
 
             Disciplina d1 = new Disciplina();
@@ -64,6 +65,8 @@ public class DisciplinaDAO {
     public void removerPorId(long id) {
         for (int i = 0; i < disciplinas.length; i++) {
             if (disciplinas[i] != null && disciplinas[i].getId() == id) {
+
+                new OfertaDisciplinasController().removerOfertaDisciplinasDisciplinaDeletado(disciplinas[i]);
                 disciplinas[i] = null;
             }
         }

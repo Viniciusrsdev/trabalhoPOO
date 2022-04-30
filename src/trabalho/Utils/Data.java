@@ -9,8 +9,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -39,7 +37,7 @@ public class Data {
             return null;
         }
     }
-    
+
     public static String converterData(Date data) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String s = formatter.format(data);

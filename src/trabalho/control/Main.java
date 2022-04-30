@@ -25,6 +25,7 @@ import trabalho.view.MainGUI;
 public class Main {
 
     public Main() {
+
         CampusDAO campusDAO = new CampusDAO();
         CursoDAO cursoDAO = new CursoDAO();
         ServidorDAO servidorDAO = new ServidorDAO();
@@ -37,7 +38,6 @@ public class Main {
         AtividadeDAO atividadeDAO = new AtividadeDAO();
         OrientacaoDAO orientacaoDAO = new OrientacaoDAO();
         MainGUI mainGUI = new MainGUI();
-
     }
 
     public static void main(String[] args) {

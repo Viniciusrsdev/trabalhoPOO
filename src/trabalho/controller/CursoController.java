@@ -48,7 +48,7 @@ public class CursoController {
         return cursoDAO.buscaPorId(idCurso);
     }
 
-    public void removerPorId(Long id) {
+    public void removerPorId(long id) {
         cursoDAO.removerPorId(id);
     }
 

@@ -69,7 +69,7 @@ public class CursoDAO {
     public void removerPorId(long id) {
         for (int i = 0; i < cursos.length; i++) {
             if (cursos[i] != null && cursos[i].getId() == id) {
-                
+
                 new DisciplinaController().removerDisciplinasCursoDeletado(cursos[i]);
                 cursos[i] = null;
             }

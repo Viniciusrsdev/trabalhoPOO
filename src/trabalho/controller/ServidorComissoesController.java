@@ -28,16 +28,16 @@ public class ServidorComissoesController {
     public ServidorComissoes[] listar() {
         return servidorcomissoesDAO.listar();
     }
-    
+
     public boolean checarListaComissao() {
         return new ComissaoController().checarListaComissao();
     }
-    
+
     public boolean checarListaServidor() {
         return new ServidorController().checarListaServidor();
     }
-    
-        public boolean checarListaServidorComissoes() {
+
+    public boolean checarListaServidorComissoes() {
         ServidorComissoes[] servidorcomissoes = this.listar();
         boolean temServidorComissoes = false;
         for (ServidorComissoes i : servidorcomissoes) {
@@ -54,11 +54,11 @@ public class ServidorComissoesController {
     }
 
     public void removerPorId(long id) {
-       
+
         servidorcomissoesDAO.removerPorId(id);
     }
-    
-          public void removerServidorComissoesServidorDeletado(Servidor s) {
+
+    public void removerServidorComissoesServidorDeletado(Servidor s) {
         ServidorComissoes[] servidorcomissoes = this.listar();
         for (int i = 0; i < servidorcomissoes.length; i++) {;
             if (servidorcomissoes[i] != null && servidorcomissoes[i].getServidor() == s) {
@@ -67,26 +67,26 @@ public class ServidorComissoesController {
             }
         }
     }
-          
-                public void removerServidorComissoesComissaoDeletado(Comissao c) {
+
+    public void removerServidorComissoesComissaoDeletado(Comissao c) {
         ServidorComissoes[] servidorcomissoes = this.listar();
         for (int i = 0; i < servidorcomissoes.length; i++) {;
-            if (servidorcomissoes[i] != null && servidorcomissoes[i].getComissao()== c) {
+            if (servidorcomissoes[i] != null && servidorcomissoes[i].getComissao() == c) {
                 Long aux = servidorcomissoes[i].getId();
                 this.removerPorId(aux);
             }
         }
     }
-                
-                 public boolean verificarPapel(String papel) {
+
+    public boolean verificarPapel(String papel) {
         if (!"PRESIDENTE".equals(papel.toUpperCase()) && !"VICE".equals(papel.toUpperCase()) && !"SECRETARIO".equals(papel.toUpperCase()) && !"PARTICIPANTE".equals(papel.toUpperCase()) && !"SUPLENTE".equals(papel.toUpperCase())) {
             return false;
         } else {
             return true;
         }
     }
-                 
-                   public Date verificarData(String s) {
+
+    public Date verificarData(String s) {
         Date date = Data.converterData(s);
         return date;
     }

@@ -117,8 +117,7 @@ public class Comissao {
     private String formatarDatas() {
         if (estado == "ATIVO") {
             return Data.converterData(inicio) + "ate" + Data.converterData(termino);
-        }
-        else{
+        } else {
             return "Ativo desde " + Data.converterData(inicio);
         }
     }

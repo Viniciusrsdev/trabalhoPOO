@@ -26,9 +26,7 @@ public class ComissaoController {
     public Comissao[] listar() {
         return comissaoDAO.listar();
     }
-    
- 
-    
+
     public boolean checarListaComissao() {
         Comissao[] comissao = this.listar();
         boolean temComissao = false;
@@ -45,10 +43,10 @@ public class ComissaoController {
         return comissaoDAO.buscaPorId(idComissao);
     }
 
-    public void removerPorId(Long id) {
+    public void removerPorId(long id) {
         comissaoDAO.removerPorId(id);
     }
-    
+
     public boolean verificarEstado(String estado) {
         if (!"ATIVO".equals(estado.toUpperCase()) && !"INATIVO".equals(estado.toUpperCase())) {
             return false;
@@ -56,8 +54,8 @@ public class ComissaoController {
             return true;
         }
     }
-    
-   public Date verificarData(String s) {
+
+    public Date verificarData(String s) {
         Date date = Data.converterData(s);
         return date;
     }

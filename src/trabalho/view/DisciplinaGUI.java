@@ -9,7 +9,6 @@ import java.util.Scanner;
 import trabalho.Utils.Data;
 import trabalho.model.Disciplina;
 import trabalho.controller.DisciplinaController;
-
 import trabalho.Utils.Validacao;
 
 /**

@@ -19,7 +19,7 @@ public class ServidorComissoesDAO {
 
     public ServidorComissoesDAO() {
         if (!inicializado) {
-            
+
             ServidorDAO servidorDAO = new ServidorDAO();
             ComissaoDAO comissaoDAO = new ComissaoDAO();
 

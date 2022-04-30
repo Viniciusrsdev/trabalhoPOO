@@ -73,7 +73,6 @@ public class ServidorComissoes {
         this.saida = saida;
     }
 
-   
     public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
@@ -115,10 +114,10 @@ public class ServidorComissoes {
         return true;
     }
 
-    private String formatarDatas(){
+    private String formatarDatas() {
         return " -> Entrou em " + Data.converterData(entrada) + " e saiu em " + Data.converterData(saida);
     }
-    
+
     @Override
     public String toString() {
         return id + " -- " + comissao.getNome() + " - " + servidor.getNome() + "(" + papel + ")" + formatarDatas();
