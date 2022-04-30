@@ -14,7 +14,7 @@ import trabalho.model.OfertaDisciplinas;
  */
 public class OfertaDisciplinasDAO {
 
-    private static OfertaDisciplinas[] ofertasDisciplinas = new OfertaDisciplinas[5];
+    private static OfertaDisciplinas[] ofertasDisciplinas = new OfertaDisciplinas[10];
     private static boolean inicializado = false;
 
     public OfertaDisciplinasDAO() {

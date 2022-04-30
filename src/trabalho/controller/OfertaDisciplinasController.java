@@ -22,9 +22,9 @@ public class OfertaDisciplinasController {
 
     public boolean adicionar(OfertaDisciplinas ofertadisciplinas) {
         boolean retorno = ofertadisciplinasDAO.adiciona(ofertadisciplinas);
-        //   if (retorno){
-        //       new AtividadeController().criaPrepAula(ofertadisciplinas);
-        //  }
+           if (retorno){
+               new AtividadeController().criaPrepAula(ofertadisciplinas);
+         }
         return retorno;
     }
 

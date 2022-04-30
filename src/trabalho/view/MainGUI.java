@@ -50,7 +50,8 @@ public class MainGUI {
         builder.append("\n7 - Atividades");
         builder.append("\n8 - Comissoes");
         builder.append("\n9 - Reunioes");
-        builder.append("\n10 - Sair\n");
+        builder.append("\n10 - Reunioes - Presentes");
+        builder.append("\n11 - Sair\n");
         builder.append("\nEscolha uma opcao: ");
 
         System.out.print(builder.toString());
@@ -149,6 +150,10 @@ public class MainGUI {
                     break;
 
                 case 10:
+                    new AtaReuniaoPresentesGUI().menuAtaReuniaoPresentes();
+                    break;
+
+                case 11:
 
                     break;
 
@@ -156,7 +161,7 @@ public class MainGUI {
                     break;
             }
 
-        } while (opc != 10);
+        } while (opc != 11);
     }
 
 }

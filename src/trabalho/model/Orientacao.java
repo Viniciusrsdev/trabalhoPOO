@@ -124,7 +124,7 @@ public class Orientacao {
 
     @Override
     public String toString() {
-        return id + " -- " + servidor + " (" + tipo + ") -- Aluno: " + nomeAluno + " -- Horas semanais: " + horasSemanais + " -> Inicio: " + inicio + " Termino: " + termino;
+        return id + " -- " + servidor.getNome() + " (" + tipo + ") -- Aluno: " + nomeAluno + " -- Horas semanais: " + horasSemanais + " -> Inicio: " + inicio + " Termino: " + termino;
     }
 
 }

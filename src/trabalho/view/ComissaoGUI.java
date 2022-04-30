@@ -31,7 +31,7 @@ public class ComissaoGUI {
         builder.append("\n2 - Editar uma Comissao");
         builder.append("\n3 - Deletar uma Comissao");
         builder.append("\n4 - Mostrar todas as Comissoes");
-        builder.append("\n6 - Voltar\n");
+        builder.append("\n5 - Voltar\n");
         builder.append("\nEscolha uma opcao: ");
 
         System.out.print(builder.toString());

@@ -124,7 +124,7 @@ public class Comissao {
 
     @Override
     public String toString() {
-        return id + " -- " + nome + " (" + estado + ") -- Horas semanais: " + horasSemanais + " -> " + formatarDatas();
+        return id + " -- " + nome + " (" + estado + ") -- Horas semanais: " + horasSemanais + " -> Inicio: " + inicio + " Termino: " + termino;
     }
 
 }

@@ -14,7 +14,7 @@ import trabalho.model.Atividade;
  */
 public class AtividadeDAO {
 
-    private static Atividade[] atividades = new Atividade[5];
+    private static Atividade[] atividades = new Atividade[10];
     private static boolean inicializado = false;
 
     public AtividadeDAO() {

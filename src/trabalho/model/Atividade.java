@@ -115,7 +115,7 @@ public class Atividade {
 
     @Override
     public String toString() {
-        return id + " -- " + descricao + " (" + servidor + ") -- Horas semanais: " + horasSemanais + " -> Inicio: " + inicio + " Termino: " + termino;
+        return id + " -- " + descricao + " (" + servidor.getNome() + ") -- Horas semanais: " + horasSemanais + " -> Inicio: " + inicio + " Termino: " + termino;
     }
 
 }

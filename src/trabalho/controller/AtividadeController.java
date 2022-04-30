@@ -10,6 +10,7 @@ import trabalho.model.Atividade;
 import trabalho.DAO.AtividadeDAO;
 import trabalho.Utils.Data;
 import trabalho.model.Servidor;
+import trabalho.model.OfertaDisciplinas;
 
 /**
  *
@@ -63,20 +64,20 @@ public class AtividadeController {
         }
     }
 
-//    public void criaPrepAula(OfertaDisciplinas ofertadisciplinas){
-//        Atividade temp = new Atividade();
-//        
-//        temp.setDescricao("Preparacao de aula: " + ofertadisciplinas.getDisciplina().getNome());
-//        
-//        temp.setHorasSemanais(ofertadisciplinas.getHorasSemanais());
-//        
-//        temp.setServidor(ofertadisciplinas.getProfessor());
-//        
-//        temp.setDataCriacao(Data.dataAtual());
-//
-//        adicionar(temp);
-//
-//    }
+    public void criaPrepAula(OfertaDisciplinas ofertadisciplinas) {
+        Atividade temp = new Atividade();
+
+        temp.setDescricao("Preparacao de aula: " + ofertadisciplinas.getDisciplina().getNome());
+
+        temp.setHorasSemanais(ofertadisciplinas.getHorasSemanais());
+
+        temp.setServidor(ofertadisciplinas.getProfessor());
+
+        temp.setDataCriacao(Data.dataAtual());
+
+        adicionar(temp);
+    }
+
     public Date verificarData(String s) {
         Date date = Data.converterData(s);
         return date;
